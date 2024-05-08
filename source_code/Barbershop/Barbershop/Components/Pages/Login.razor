@@ -1,0 +1,78 @@
+﻿@page "/login"
+@using Barbershop.Model.Entity
+@using Barbershop.Model.ViewModel
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using Newtonsoft.Json
+@using System.Security.Claims
+@using System.Security.Cryptography
+@inject IAuthorizationService authorization
+@layout EmptyLayout
+@rendermode InteractiveServer
+
+<Layout Padding="Padding.Is0.OnDesktop.Is0.OnMobile" >
+    <LayoutContent Flex="Flex.Row.AlignItems.Start.JustifyContent.Center" 
+    Width="Width.Is100"
+    Height="Height.Is100">
+        <Div Height="Height.Is100"
+        Style="background-image: url('/static/images/login_image.jpg');
+                background-size:cover;
+                background-position:center" 
+        Width='Width.Is50.OnDesktop' 
+        Overflow="Overflow.Hidden"></Div>
+        <Card Flex="Flex.Column.JustifyContent.Center"
+            Padding="Padding.Is5.OnDesktop.Is2.OnMobile"
+              Width="Width.Is50.OnDesktop.Is100.OnMobile"
+              Margin="Margin.Is0.OnDesktop.Is0.OnMobile"
+              Height="Height.Is100"
+              >
+            <Form>
+                <Heading TextAlignment="TextAlignment.Center">Авторизация</Heading>
+                <Field>
+                    <FieldLabel>Адрес электронной почты</FieldLabel>
+                    <TextEdit Placeholder="example@mail.test" Role="TextRole.Email" @bind-Text="LoginModel.Email"></TextEdit>
+                </Field>
+                <Field>
+                    <FieldLabel>Пароль</FieldLabel>
+                    <TextEdit Role="TextRole.Password" @bind-Text="LoginModel.Password"></TextEdit>
+                </Field>
+                <Button Color="Color.Primary" Clicked="Authenticate" Width="Width.Is100">Войти</Button>
+            </Form>
+            <CardFooter
+                Margin="Margin.Is2.FromTop"
+                TextAlignment="TextAlignment.Center">Нет аккаунта? <Link To="/register">Зарегистрируйтесь.</Link></CardFooter>
+        </Card>
+    </LayoutContent>
+</Layout>
+<ToastProvider AutohideDelay="10000"></ToastProvider>
+
+@code {
+    public LoginViewModel LoginModel { get; set; } = new() { };
+    [Inject] IToastService toastService { get; set; }
+    private async Task Authenticate()
+    {
+        Console.WriteLine(JsonConvert.SerializeObject(LoginModel));
+        using (var db = new DatabaseContext())
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(db.Users.ToList()));
+            try
+            {
+                await authorization.Login(LoginModel);
+            }
+            catch(Exception exception)
+            {
+                await toastService.Error(
+                    new MarkupString($"<p>{exception.Message}</p>"),
+                    "Ошибка");
+                return;
+            }
+        }
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            
+        }
+    }
+}

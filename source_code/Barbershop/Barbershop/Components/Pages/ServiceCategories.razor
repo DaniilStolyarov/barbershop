@@ -1,0 +1,47 @@
+﻿@page "/service_categories"
+@page "/"
+<Layout >
+    <LayoutContent Flex="Flex.Row.JustifyContent.Center.Wrap.OnMobile.AlignContent.Start" 
+        Background="Background.Dark"
+        Padding="Padding.Is4.OnY">
+        <Repeater Items="Categories">
+            <Card Background=Background.Secondary
+            Height="Height.Is25.OnMobile"
+            Width="Width.Is50.OnMobile.Is25.OnDesktop"
+            Margin="Margin.Is0.OnMobile.Is5.OnDesktop"
+            Padding="Padding.Is0.OnMobile"
+            Style="cursor:pointer">
+                <CardBody Flex="Flex.JustifyContent.Center.AlignItems.Center"
+                Style="@context.BackgroundImageParameterText">
+                </CardBody>
+                <CardTitle TextAlignment="TextAlignment.Center"
+                           TextWeight="TextWeight.Bold"
+                           TextSize="TextSize.Medium"
+                            Style="white-space:nowrap;">@context.Name</CardTitle>
+            </Card>
+        </Repeater>
+    </LayoutContent>
+</Layout>
+
+@code {
+    private List<CategoryViewModel> Categories = [];
+
+    protected override void OnParametersSet()
+    {
+        using (var db = new DatabaseContext())
+        {
+            // group services by category to get list of Service Categories
+            Categories = db.Services.GroupBy(service => service.Category).Select(category => new CategoryViewModel()
+            {
+                Name = category.Key,
+                    BackgroundImageParameterText = $"background: url('{category.First().ImageHref}');background-size:cover;background-repeat:no-repeat;background-position:center;"
+            }).ToList();
+        }
+    }
+
+    class CategoryViewModel
+    {
+        public string Name { get; set; }
+        public string BackgroundImageParameterText { get; set; }
+    }
+}

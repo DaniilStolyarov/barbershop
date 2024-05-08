@@ -1,0 +1,53 @@
+﻿@page "/home"
+@using Barbershop.Model.Entity
+@using Components.Layout
+@rendermode InteractiveServer
+@inject IAuthorizationService authorization
+
+
+
+<LoadingIndicator @bind-Visible="@visible" IndicatorBackground="Background.White" FullScreen="true">
+    <Layout Padding=Padding.Is5>
+        <LayoutContent>
+            <Heading>Здравствуйте, @(AuthorizedUser?.Name + " " + AuthorizedUser?.Lastname)!</Heading>
+            <Card Width="Width.Is50" Padding="Padding.Is5">
+                <CardTitle>
+                    <Heading >Ваши данные</Heading>
+                </CardTitle>
+                <Form>
+                    <Field>
+                        <FieldLabel>Email</FieldLabel>
+                        <TextEdit Disabled Text="@AuthorizedUser?.Email"></TextEdit>
+                    </Field>
+                    <Field>
+                        <FieldLabel>Телефон</FieldLabel>
+                        <TextEdit Disabled Text="@AuthorizedUser?.PhoneNumber"></TextEdit>
+                    </Field>
+                    <Field>
+                        <FieldLabel>Роль</FieldLabel>
+                        <TextEdit Disabled Text="@AuthorizedUser?.Role"></TextEdit>
+                    </Field>
+                </Form>
+            </Card>
+        </LayoutContent>
+    </Layout>
+</LoadingIndicator>
+@code
+{
+    User? AuthorizedUser;
+    bool visible = false;
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            AuthorizedUser = await authorization.GetAuthorizedUser();
+            StateHasChanged();
+        }
+    }
+}

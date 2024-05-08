@@ -1,0 +1,32 @@
+﻿<ThemeProvider Theme="@theme" >
+    <Router AppAssembly="typeof(Program).Assembly">
+        <Found Context="routeData">
+            <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
+            <FocusOnNavigate RouteData="routeData" Selector="h1" />
+        </Found>
+    </Router>
+</ThemeProvider>
+
+@code
+{
+    private Theme theme = new Theme
+        {
+            ColorOptions = new()
+            {
+                Primary = "#057dcd",
+                Secondary = "#FEFAF6"
+            }
+            ,
+            BackgroundOptions = new()
+            {
+                Primary = "#057dcd",
+                Secondary = "#e8eef1",
+                Dark = "#070F2B"
+            },
+            TextColorOptions = new()
+            {
+
+            }
+            
+        };
+}

@@ -1,0 +1,52 @@
+﻿@using Barbershop.Model.Entity
+@using Newtonsoft.Json
+@inject IAuthorizationService authorization
+
+@rendermode InteractiveServer
+<Bar Breakpoint="Breakpoint.Desktop"
+     Background="Background.Dark"
+     ThemeContrast="ThemeContrast.Dark">
+    <BarBrand >
+        Barbershop <BarIcon IconName="IconName.Cut"></BarIcon>
+    </BarBrand>
+    
+    <BarToggler />
+    <BarMenu>
+        <BarStart>
+            <BarItem>
+                <BarLink To="#home">Отзывы</BarLink>
+            </BarItem>
+            <BarItem>
+                <BarLink To="/service_categories">Услуги</BarLink>
+            </BarItem>
+            <BarItem>
+                <BarLink To="#docs">Мастера</BarLink>
+            </BarItem>
+        </BarStart>
+        <BarEnd>
+            @if (authorization.CachedUser == null)
+            {
+                <BarItem>
+                    <BarLink TextColor="TextColor.Primary" To="/register">Регистрация</BarLink>
+                </BarItem>
+                <BarItem>
+                    <BarLink TextColor="TextColor.Light" To="/login">Войти</BarLink>
+                </BarItem>
+            }
+            @if (authorization.CachedUser != null)
+            {
+            <BarItem>
+                <BarLink TextColor="TextColor.Primary" Clicked="() => {authorization.Logout();}">Выйти</BarLink>
+            </BarItem>
+            }
+        </BarEnd>
+    </BarMenu>
+</Bar>
+@code {
+    protected override void OnInitialized()
+    {
+        authorization.OnUserLoggedIn += StateHasChanged;
+        authorization.OnUserLoggedOut += StateHasChanged;
+    }
+
+}

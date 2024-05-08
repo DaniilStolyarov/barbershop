@@ -1,0 +1,97 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Barbershop.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Barbershop.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Beard\\Espanol.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Beard\\Espanol.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Beard\\Short.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Beard\\Short.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Coloring\\Coloring.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Coloring\\Coloring.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Bob.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Bob.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Cesar.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Cesar.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Garson.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Garson.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Halfbox.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Halfbox.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Hat.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Hat.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Mallet.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Mallet.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Military.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Military.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Pixie.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Pixie.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\ShortKare.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\ShortKare.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Star.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Star.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Cut\\Tennis.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Cut\\Tennis.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Hairdressing\\Chemical.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\Services\\Hairdressing\\Chemical.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\login_image.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\login_image.jpg"
+    },
+    {
+      "Id": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\register_image.jpg",
+      "PackagePath": "staticwebassets\\static\\images\\register_image.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Barbershop.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Barbershop.props",
+      "PackagePath": "build\\Barbershop.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Barbershop.props",
+      "PackagePath": "buildMultiTargeting\\Barbershop.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Barbershop.props",
+      "PackagePath": "buildTransitive\\Barbershop.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

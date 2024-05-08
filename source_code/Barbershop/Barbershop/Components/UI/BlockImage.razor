@@ -1,0 +1,17 @@
+﻿<Div Style="@StyleParameter" Width="@Width" Height="@Height"/>
+
+@code {
+    [Parameter]
+    public string ImageHref { get; set; } = "";
+    [Parameter]
+    public IFluentSizingMinMaxViewportOnBreakpoint Width { get; set; } = Blazorise.Width.Is100;
+    [Parameter]
+    public IFluentSizingMinMaxViewportOnBreakpoint Height { get; set; } = Blazorise.Height.Is100;
+
+    string StyleParameter = "";
+
+    protected override void OnParametersSet()
+    {
+        StyleParameter = $"background: url('{ImageHref}');";
+    }
+}

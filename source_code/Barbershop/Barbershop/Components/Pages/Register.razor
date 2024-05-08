@@ -1,0 +1,145 @@
+﻿@page "/register"
+@using Barbershop.Model.ViewModel
+@using System.ComponentModel.DataAnnotations
+@rendermode InteractiveServer
+@inject NavigationManager navigation
+<Layout Padding="Padding.Is0.OnDesktop.Is0.OnMobile"
+        Style="background-image:url('/static/images/register_image.jpg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size:cover">
+    <LayoutContent Flex="Flex.Column.AlignItems.Center.JustifyContent.Start" Width="Width.Is100">
+        <Card Padding="Padding.Is5.OnX.Is4.OnY.OnDesktop.Is3.OnMobile"
+              Width="Width.Is50.OnDesktop.Is100.OnMobile"
+              Margin="Margin.Is3.OnDesktop.Is0.OnMobile">
+            <Form>
+                <Heading TextAlignment="TextAlignment.Center">Регистрация</Heading>
+                <Validations @ref="validations" Mode="ValidationMode.Auto" Model="@RegisterModel" ValidateOnLoad="false">
+                    <Fields>
+                        <Validation>
+                            <Field>
+                                <FieldLabel>Фамилия</FieldLabel>
+                                <TextEdit MaskType="MaskType.RegEx" EditMask="^[а-яА-Я]*$"
+                                          Placeholder="Иванов" Role="TextRole.Text" @bind-Text="RegisterModel.Surname">
+                                    <Feedback>
+                                        <ValidationError></ValidationError>
+                                    </Feedback>
+                                </TextEdit>
+                            </Field>
+
+                        </Validation>
+                        <Validation>
+                            <Field>
+                                <FieldLabel>Имя</FieldLabel>
+                                <TextEdit MaskType="MaskType.RegEx" EditMask="^[а-яА-Я]*$"
+                                          Placeholder="Иван" Role="TextRole.Text" @bind-Text="RegisterModel.Name">
+                                    <Feedback>
+                                        <ValidationError></ValidationError>
+                                    </Feedback>
+                                </TextEdit>
+                            </Field>
+                        </Validation>
+                        <Validation>
+                            <Field>
+                                <FieldLabel>Отчество</FieldLabel>
+                                <TextEdit MaskType="MaskType.RegEx" EditMask="^[а-яА-Я]*$"
+                                          Placeholder="Иванович" Role="TextRole.Text" @bind-Text="RegisterModel.Lastname">
+                                    <Feedback>
+                                        <ValidationError></ValidationError>
+                                    </Feedback>
+                                </TextEdit>
+                            </Field>
+                        </Validation>
+                    </Fields>
+                    <Validation>
+                        <Field>
+                            <FieldLabel>Пол</FieldLabel>
+                            <Select TValue="string" @bind-SelectedValue="@RegisterModel.Sex">
+                                <SelectItem Value='"Мужской"'>Мужской</SelectItem>
+                                <SelectItem Value='"Женский"'>Женский</SelectItem>
+                            </Select>
+                        </Field>
+                    </Validation>
+                    <Fields>
+                        <Validation>
+                            <Field>
+                                <FieldLabel>Номер телефона</FieldLabel>
+                                <TextEdit MaskType="MaskType.RegEx" EditMask="^(\d+(.\d{0,2})?|.?\d{1,2})$"
+                                          Placeholder="8XXXXXXXXXX" Role="TextRole.Telephone" @bind-Text="RegisterModel.PhoneNumber">
+                                    <Feedback>
+                                        <ValidationError></ValidationError>
+                                    </Feedback>
+                                </TextEdit>
+                            </Field>
+                        </Validation>
+                        <Validation>
+                            <Field>
+                                <FieldLabel>Адрес электронной почты</FieldLabel>
+                                <TextEdit Placeholder="example@mail.test" Role="TextRole.Email" @bind-Text="RegisterModel.Email">
+                                    <Feedback>
+                                        <ValidationError></ValidationError>
+                                    </Feedback>
+                                </TextEdit>
+                            </Field>
+                        </Validation>
+                    </Fields>
+                    <Validation>
+                        <Field>
+                            <FieldLabel>Пароль</FieldLabel>
+                            <TextEdit Role="TextRole.Password" @bind-Text="RegisterModel.Password">
+                                <Feedback>
+                                    <ValidationError></ValidationError>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation>
+                        <Field>
+                            <FieldLabel>Пароль (введите снова)</FieldLabel>
+                            <TextEdit Role="TextRole.Password" @bind-Text="RegisterModel.PasswordConfirm">
+                                <Feedback>
+                                    <ValidationError></ValidationError>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+
+
+                </Validations>
+                <Button Color="Color.Primary" Width="Width.Is100" Clicked="AddUser">Зарегистрироваться</Button>
+            </Form>
+
+        </Card>
+    </LayoutContent>
+</Layout>
+<ToastProvider AutohideDelay="10000"></ToastProvider>
+@code {
+    RegisterViewModel RegisterModel = new();
+    [Inject] IToastService toastService { get; set; }
+    Validations validations;
+    public async Task AddUser()
+    {
+        // validate again
+        if (!(await validations.ValidateAll()))
+        {
+            await toastService.Error(
+                new MarkupString("<p>Проверьте правильность данных</p>"), "Ошибка!");
+            return;
+
+        }
+        using (var db = new DatabaseContext())
+        {
+            // check that user doesn`t exist already
+            bool existsAlready =
+                db.Users.Any(user =>
+                        user.Email == RegisterModel.Email);
+            if (existsAlready)
+            {
+                await toastService.Error(new MarkupString("<p>Пользователь с таким адресом уже существует.</p><a href='/login'>Войти</a>"), "Ошибка!");
+                return;
+            }
+            await db.AddUserClient(RegisterModel);
+        }
+        navigation.NavigateTo("/login");
+    }
+}
