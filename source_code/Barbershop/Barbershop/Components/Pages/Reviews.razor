@@ -1,0 +1,46 @@
+﻿@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+
+@if (CompleteRenderedServices.Count == 0)
+{
+    <Icon IconSize="IconSize.x7" Name="IconName.Lightbulb" TextColor="TextColor.Secondary"></Icon>
+    <Heading Margin="Margin.Is2.FromTop">Здесь пока нет отзывов.</Heading>
+}
+@if (CompleteRenderedServices.Count > 0)
+{
+    <Repeater Items="@CompleteRenderedServices">
+        <Card>
+            <CardBody>
+                <Icon Name="IconName.User"></Icon>
+                <Text>@context.Client.User.Name @context.Client.User.Surname[0].</Text>
+                <Paragraph Margin="Margin.Is0">
+                    <Rating SelectedValue="@context.Mark" TextSize="TextSize.Heading4"></Rating>
+                </Paragraph>
+                <Paragraph Margin="Margin.Is0">
+                    @context.Review
+                </Paragraph>
+            </CardBody>
+        </Card>
+    </Repeater>
+}
+
+@code {
+    [Parameter]
+    public int ServiceId { get; set; }
+    public List<RenderedService> CompleteRenderedServices { get; set; } = [];
+    protected override async Task OnParametersSetAsync()
+    {
+        using (var db = new DatabaseContext())
+        {
+            CompleteRenderedServices = db.RenderedServices.Where(rService => rService.Mark != 0 && rService.IsComplete == true
+            && rService.Service.Id == ServiceId)
+            .Include(rService => rService.Service)
+            .Include(rService => rService.Client)
+            .Include(rService => rService.Master)
+            .Include(rService => rService.Client.User)
+            .Include(rService => rService.Master.User)
+            .ToList();
+            StateHasChanged();
+        }
+    }
+}

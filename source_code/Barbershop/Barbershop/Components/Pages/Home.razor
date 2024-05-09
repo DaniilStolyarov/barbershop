@@ -1,40 +1,20 @@
 ﻿@page "/home"
 @using Barbershop.Model.Entity
 @using Components.Layout
+@using Microsoft.EntityFrameworkCore
 @rendermode InteractiveServer
 @inject IAuthorizationService authorization
+@inject NavigationManager navigation
 
-
-
-<LoadingIndicator @bind-Visible="@visible" IndicatorBackground="Background.White" FullScreen="true">
-    <Layout Padding=Padding.Is5>
-        <LayoutContent>
-            <Heading>Здравствуйте, @(AuthorizedUser?.Name + " " + AuthorizedUser?.Lastname)!</Heading>
-            <Card Width="Width.Is50" Padding="Padding.Is5">
-                <CardTitle>
-                    <Heading >Ваши данные</Heading>
-                </CardTitle>
-                <Form>
-                    <Field>
-                        <FieldLabel>Email</FieldLabel>
-                        <TextEdit Disabled Text="@AuthorizedUser?.Email"></TextEdit>
-                    </Field>
-                    <Field>
-                        <FieldLabel>Телефон</FieldLabel>
-                        <TextEdit Disabled Text="@AuthorizedUser?.PhoneNumber"></TextEdit>
-                    </Field>
-                    <Field>
-                        <FieldLabel>Роль</FieldLabel>
-                        <TextEdit Disabled Text="@AuthorizedUser?.Role"></TextEdit>
-                    </Field>
-                </Form>
-            </Card>
-        </LayoutContent>
-    </Layout>
-</LoadingIndicator>
+@if (AuthorizedUser?.Role == RoleTypes.Client)
+{
+    <HomeClient AuthorizedUser="@AuthorizedUser"></HomeClient>
+}
 @code
 {
     User? AuthorizedUser;
+    Master? masterData;
+    Client? clientData;
     bool visible = false;
     protected override async Task OnInitializedAsync()
     {
@@ -47,7 +27,24 @@
         {
 
             AuthorizedUser = await authorization.GetAuthorizedUser();
+            await FetchRoleData();
             StateHasChanged();
         }
     }
+
+    async Task FetchRoleData()
+    {
+        if (AuthorizedUser?.Role == RoleTypes.Master)
+        {
+            using (var db = new DatabaseContext())
+            {
+                masterData = db.Masters.Where(master => master.User.Id == AuthorizedUser.Id).SingleOrDefault();
+            }
+        }
+        else if (AuthorizedUser?.Role == RoleTypes.Client)
+        {
+
+        }
+    }
+    
 }

@@ -51,5 +51,14 @@
         authorization.OnUserLoggedIn += StateHasChanged;
         authorization.OnUserLoggedOut += StateHasChanged;
     }
-
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (authorization.CachedUser == null)
+            {
+                await authorization.GetAuthorizedUser();
+            }
+        }
+    }
 }

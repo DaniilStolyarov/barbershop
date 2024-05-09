@@ -1,0 +1,213 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Barbershop.Model.Entity
+@using Barbershop.Model.ViewModel
+@using Microsoft.EntityFrameworkCore
+@inject IAuthorizationService authorization
+@inject NavigationManager navigation
+
+@rendermode InteractiveServer
+<LoadingIndicator IndicatorBackground="Background.White" FullScreen="true">
+    <Div Padding=Padding.Is4.OnDesktop.Is3.OnMobile>
+        <Div Flex="Flex.Row.Wrap">
+            <Card Padding=Padding.Is5.OnDesktop.Is3.OnMobile
+                  Width="Width.Is33.OnQuadHD.Is100.OnMobile">
+                <CardTitle>
+                    <Heading>Здравствуйте, @(AuthorizedUser?.Name + " " + AuthorizedUser?.Lastname)!</Heading>
+                </CardTitle>
+                <Form>
+                    <Div>
+                        <Field>
+                            <FieldLabel>Email</FieldLabel>
+                            <TextEdit Disabled Text="@AuthorizedUser?.Email"></TextEdit>
+                        </Field>
+                        <Field>
+                            <FieldLabel>Телефон</FieldLabel>
+                            <TextEdit Disabled Text="@AuthorizedUser?.PhoneNumber"></TextEdit>
+                        </Field>
+                        <Field>
+                            <FieldLabel>Роль</FieldLabel>
+                            <TextEdit Disabled Text="@AuthorizedUser?.Role"></TextEdit>
+                        </Field>
+                        <Field>
+                            <FieldLabel>Пол</FieldLabel>
+                            <TextEdit Disabled Text="@clientData?.Sex"></TextEdit>
+                        </Field>
+                        <Field>
+                            <FieldLabel>Бонусные баллы</FieldLabel>
+                            <TextEdit Disabled Text="@clientData?.BonusBalance.ToString()"></TextEdit>
+                        </Field>
+                        <Button Clicked="() => {authorization.Logout(); navigation.NavigateTo(String.Empty, true);}"
+                                Width="Width.Is100" Color="Color.Danger">
+                            Выйти
+                        </Button>
+                    </Div>
+                </Form>
+            </Card>
+            <Card Padding=Padding.Is5.OnDesktop.Is3.OnMobile
+                  Width="Width.Is66.OnQuadHD.Is100.OnMobile"
+                    Overflow="Overflow.Auto">
+                <CardTitle>
+                    <Heading>Ваши записи</Heading>
+                </CardTitle>
+                <Table>
+                    <TableHeader>
+                        <TableHeaderCell>Код</TableHeaderCell>
+                        <TableHeaderCell>Категория</TableHeaderCell>
+                        <TableHeaderCell>Тип</TableHeaderCell>
+                        <TableHeaderCell>Мастер</TableHeaderCell>
+                        <TableHeaderCell>Дата и время</TableHeaderCell>
+                        <TableHeaderCell>Цена</TableHeaderCell>
+                        <TableHeaderCell></TableHeaderCell>
+                    </TableHeader>
+                    <TableBody>
+                        <TableRowGroup Title="Предстоящие" Expanded>
+                            <Repeater Items="@renderedServicesFuture">
+                                <TableRow>
+                                    <TableHeaderCell>@context.Id</TableHeaderCell>
+                                    <TableHeaderCell>
+                                        <a href="@getCategoryHref(@context.Service.Category)">@context.Service.Category</a>
+                                    </TableHeaderCell>
+                                    <TableHeaderCell>@context.Service.Name</TableHeaderCell>
+                                    <TableHeaderCell>@context.Master.User.Name</TableHeaderCell>
+                                    <TableHeaderCell>@context.Timestamp.ToLocalTime()</TableHeaderCell>
+                                    <TableHeaderCell>@context.TotalPriceRubles руб.</TableHeaderCell>
+                                    <TableHeaderCell>
+                                        <Blazorise.Link Clicked="() => {handlePayButtonClick(context.Id);}" TextColor="TextColor.Success">Оплатить</Blazorise.Link>
+                                    </TableHeaderCell>
+                                </TableRow>
+                            </Repeater>
+                        </TableRowGroup>
+                        <TableRowGroup Title="История">
+                            <Repeater Items="@renderedServicesPast">
+                                <TableRow>
+                                    <TableHeaderCell>@context.Id</TableHeaderCell>
+                                    <TableHeaderCell>
+                                        <a href="@getCategoryHref(@context.Service.Category)">@context.Service.Category</a>
+                                    </TableHeaderCell>
+                                    <TableHeaderCell>@context.Service.Name</TableHeaderCell>
+                                    <TableHeaderCell>@context.Master.User.Name</TableHeaderCell>
+                                    <TableHeaderCell>@context.Timestamp.ToLocalTime()</TableHeaderCell>
+                                    <TableHeaderCell>@context.TotalPriceRubles руб.</TableHeaderCell>
+                                    <TableHeaderCell>
+                                        <Blazorise.Link Clicked="() => {handlePayButtonClick(context.Id);}" TextColor="TextColor.Info" Disabled>Оплачено</Blazorise.Link>
+                                    </TableHeaderCell>
+                                </TableRow>
+                            </Repeater>
+                        </TableRowGroup>
+                        
+                    </TableBody>
+                </Table>
+            </Card>
+        </Div>
+    </Div>
+</LoadingIndicator>
+<Modal @ref="@ReviewModalRef">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Оставить отзыв</ModalTitle>
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel Margin="Margin.Is0" TextSize="TextSize.Heading5">Оцените качество</FieldLabel>
+                <Paragraph Margin="Margin.Is0">
+
+                    <Rating @bind-SelectedValue="@Rating.Value" Margin="Margin.Is0" TextSize="TextSize.Heading3" MaxValue="5"></Rating>
+                </Paragraph>
+            </Field>
+            <Field>
+                <FieldLabel>Текст (дополнительно)</FieldLabel>
+                <MemoEdit @bind-Text="@Rating.Text" MaxValue="5"></MemoEdit>
+            </Field>
+            <Alert Visible=true Color="Color.Danger">
+                <Heading TextSize="TextSize.Heading4">Внимание</Heading>
+                <AlertDescription>
+                    Нажимайте кнопку оплатить, только если вы <b>уже</b> получили услугу.
+                    Если вы случайно отправили нам деньги и хотите отказаться от услуги, обратитесь в поддержку
+                </AlertDescription>
+            </Alert>
+            <ModalFooter>
+                <Text>Мы спишем деньги автоматически.</Text>
+                <Button Color="Color.Danger" Clicked="@Pay">Оплатить @viewRenderedService?.TotalPriceRubles руб.</Button>
+            </ModalFooter>
+        </ModalBody>
+        
+    </ModalContent>
+</Modal>
+@code {
+    [Required]
+    [Parameter]
+    public User? AuthorizedUser { get; set; }
+    Client? clientData { get; set; }
+    List<RenderedService> renderedServicesFuture = [];
+    List<RenderedService> renderedServicesPast = [];
+    Modal ReviewModalRef;
+    RenderedService? viewRenderedService;
+    RatingViewModel Rating = new();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadRenderedServices();
+            StateHasChanged();
+        }
+    }
+    async Task LoadRenderedServices()
+    {
+        using (var db = new DatabaseContext())
+        {
+            renderedServicesFuture = db.RenderedServices.Where(rService => rService.Client.User.Id == AuthorizedUser.Id)
+            .Where(rService => rService.IsComplete == false)
+            .Include(rService => rService.Master).Include(rService => rService.Master.User)
+            .Include(rService => rService.Service)
+            .Include(rService => rService.Client)
+            .Include(rService => rService.Client.User)
+            .ToList();
+
+            renderedServicesPast = db.RenderedServices.Where(rService => rService.Client.User.Id == AuthorizedUser.Id)
+            .Where(rService => rService.IsComplete == true)
+            .Include(rService => rService.Master).Include(rService => rService.Master.User)
+            .Include(rService => rService.Service)
+            .Include(rService => rService.Client)
+            .Include(rService => rService.Client.User)
+            .ToList();
+            clientData = db.Clients.Where(client => client.User.Id == AuthorizedUser.Id).SingleOrDefault();
+            StateHasChanged();
+        }
+    }
+
+    string getCategoryHref(string categoryName)
+    {
+        return $"/service/{categoryName}";
+    }
+
+    async Task handlePayButtonClick(int renderedServiceId)
+    {
+        await ReviewModalRef.Show();
+        using (var db = new DatabaseContext())
+        {
+            viewRenderedService = db.RenderedServices
+            .Where(rService => rService.Id == renderedServiceId && rService.Client.Id == clientData.Id)
+            .SingleOrDefault();
+            StateHasChanged();
+        }
+    }
+    // no payment logic yet, just proccess the review assuming that payment was successful
+    async Task Pay()
+    {
+        using (var db = new DatabaseContext())
+        {
+            viewRenderedService = db.RenderedServices
+            .Where(rService => rService.Id == viewRenderedService.Id && rService.Client.Id == clientData.Id)
+            .SingleOrDefault();
+            if (viewRenderedService.IsComplete) return;
+            viewRenderedService.Mark = Rating.Value;
+            viewRenderedService.Review = Rating.Text;
+            viewRenderedService.IsComplete = true;
+            db.SaveChanges();
+            StateHasChanged();
+            await ReviewModalRef.Hide();
+            navigation.Refresh(true);
+        }
+    }
+}

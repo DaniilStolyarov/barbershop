@@ -313,22 +313,22 @@ public class TestData
         db.Shifts.Add(new()
         {
             Master = Masters[0],
-            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-06-01"), DateTimeKind.Utc),
+            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-06-01").ToUniversalTime(), DateTimeKind.Utc),
         });
         db.Shifts.Add(new()
         {
             Master = Masters[0],
-            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-06-02"), DateTimeKind.Utc),
+            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-06-02").ToUniversalTime(), DateTimeKind.Utc),
         });
         db.Shifts.Add(new()
         {
             Master = Masters[1],
-            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-06-01"), DateTimeKind.Utc),
+            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-06-01").ToUniversalTime(), DateTimeKind.Utc),
         });
         db.Shifts.Add(new()
         {
             Master = Masters[1],
-            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-06-02"), DateTimeKind.Utc),
+            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-06-02").ToUniversalTime(), DateTimeKind.Utc),
         });
         db.SaveChanges();
     }

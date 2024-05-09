@@ -104,7 +104,7 @@ public class DatabaseContext : DbContext
             Mark = 0,
             Master = serviceMaster,
             Service = Services.Where(service => service.Id == applyViewModel.SelectedService.Id).First(),
-            Timestamp = DateTime.SpecifyKind(DateTime.Parse(applyViewModel.SelectedDateString), DateTimeKind.Utc)
+            Timestamp = DateTime.SpecifyKind(DateTime.Parse(applyViewModel.SelectedDateString).ToUniversalTime(), DateTimeKind.Utc)
             .AddHours(applyViewModel.SelectedHour),
             TotalPriceRubles = totalPrice
         });
@@ -184,6 +184,7 @@ public class RenderedService
     public Master Master { get; set; }
     public Service Service { get; set; }
     public bool IsComplete { get; set; } = false;
+    public string Review { get; set; } = "";
 }
 
 public class Shift

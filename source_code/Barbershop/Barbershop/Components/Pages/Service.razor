@@ -7,54 +7,59 @@
 @inject NavigationManager navigation
 @inject IAuthorizationService authorization
 @rendermode InteractiveServer
-<Layout Overflow="Overflow.Auto" Display="Display.None.OnMobile.Flex">
-    <LayoutContent Flex="Flex.Row.Wrap.AlignContent.Stretch" 
-        Overflow="Overflow.Hidden">
-        <Card 
-            Background="Background.Light" 
-            Width="Width.Is100.OnMobile.Is50.OnDesktop" 
-            Padding="Padding.Is0.OnX.Is2.OnY.OnMobile.Is5.OnDesktop"
-            >
-            <BlockImage Height="Height.Is50" Width="Width.Is75" Margin="Margin.IsAuto.OnX" ImageHref="@viewService?.ImageHref" 
-            Style="border:5px solid black;border-radius: 10px;background-repeat:no-repeat; background-position: center; background-size: cover"></BlockImage>
-            <CardBody Padding="Padding.Is0.OnMobile">
-                <CardText TextAlignment="TextAlignment.Center"
-                          Margin="Margin.Is2.FromTop.OnDesktop.IsAuto.OnX"
-                    TextSize="TextSize.Heading4"
-                    TextWeight="TextWeight.Bold">
-                    @viewService?.Name - @viewService?.PriceRubles рублей
-                </CardText>
-                <CardBody Overflow="Overflow.Auto" Height="Height.Is75"
-                    Padding="Padding.Is0.OnMobile" Display="Display.None.OnMobile.Block.OnDesktop">
-                    <CardTitle TextSize="TextSize.Heading5" TextWeight="TextWeight.SemiBold">Описание</CardTitle>
-                    <CardText 
-                        TextAlignment="TextAlignment.Start" Margin="Margin.Is2.FromTop.IsAuto.OnX">
-                        @viewService?.Description
-                    </CardText>
-                </CardBody>
-            </CardBody>
-            <CardBody Padding="Padding.Is0.OnMobile">
-                <Button Color="Color.Primary" Width="Width.Is100" 
-                        Clicked="@handleServiceApply">Записаться</Button>
-                <Button Color="Color.Light" Width="Width.Is100" Type="ButtonType.Link" To="/about">Как это работает?</Button>
-            </CardBody>
-        </Card>
-        <Card Background="Background.Light"
-              Width="Width.Is100.OnMobile.Is50.OnDesktop"
-              Padding="Padding.Is0.OnX.Is2.OnY.OnMobile.Is5.OnDesktop">
-            <CardTitle TextSize="TextSize.Heading3">Варианты</CardTitle>
-            <Div Flex="Flex.Row.Wrap.JustifyContent.Start" >
-                <Repeater Items="categoryServices">
-                    <Button Width="Width.Auto" Margin="Margin.Is1" Style="@getColorString(context)"
+
+<Div Flex="Flex.Row.Wrap">
+@*     <Div Background="Background.Light"
+          Width="Width.Is100.OnMobile.Is50.OnDesktop"
+          Padding="Padding.Is5.OnDesktop.Is2.OnMobile">
+        
+   
+    </Div> *@
+    <Card Background="Background.Light"
+          Width="Width.Is100.OnMobile.Is50.OnDesktop"
+          Padding="Padding.Is2.OnX.Is2.OnY.OnMobile.Is5.OnDesktop">
+        <BlockImage ImageHref="@viewService?.ImageHref"
+                    Style="height:300px;border:1px solid black;border-radius: 10px;background-repeat:no-repeat; background-position: center; background-size: cover"></BlockImage>
+
+        <CardText TextAlignment="TextAlignment.Center"
+                  Margin="Margin.Is2.FromTop.OnDesktop.IsAuto.OnX"
+                  TextSize="TextSize.Heading4"
+                  TextWeight="TextWeight.Bold">
+            @viewService?.Name - @viewService?.PriceRubles рублей
+        </CardText>
+        <Paragraph Padding="Padding.Is0.OnMobile">
+            <CardTitle TextSize="TextSize.Heading5" TextWeight="TextWeight.SemiBold">Описание</CardTitle>
+            <CardText TextAlignment="TextAlignment.Start" Margin="Margin.Is2.FromTop.IsAuto.OnX">
+                @viewService?.Description
+            </CardText>
+        </Paragraph>
+        <Button Color="Color.Primary" Width="Width.Is100"
+                Clicked="@handleServiceApply">
+            Записаться
+        </Button>
+        <Button Color="Color.Light" Width="Width.Is100" Type="ButtonType.Link" To="/about">Как это работает?</Button>
+
+    </Card>
+    <Card Background="Background.Light"
+          Width="Width.Is100.OnMobile.Is50.OnDesktop"
+          Padding="Padding.Is0.OnX.Is2.OnY.OnMobile.Is5.OnDesktop">
+        <CardTitle TextSize="TextSize.Heading3">Варианты</CardTitle>
+        <Div Flex="Flex.Row.Wrap.JustifyContent.Start">
+            <Repeater Items="categoryServices">
+                <Button Width="Width.Auto" Margin="Margin.Is1" Style="@getColorString(context)"
                         Clicked="() => {toggleActiveViewService(context);}">
-                        @context.Name
-                    </Button>
-                </Repeater>
+                    @context.Name
+                </Button>
+            </Repeater>
+        </Div>
+        <CardTitle TextSize="TextSize.Heading3">Отзывы</CardTitle>
+        <CardBody>
+            <Div Overflow="Overflow.Auto" Style="height: 350px">
+                <Reviews ServiceId="@viewService.Id"></Reviews>
             </Div>
-            <CardTitle TextSize="TextSize.Heading3">Отзывы</CardTitle>
-        </Card> 
-    </LayoutContent>
-</Layout>
+        </CardBody>
+    </Card>
+</Div>
 <Modal @ref="@applyServiceModal">
     <ModalContent Centered>
         <ModalHeader>
@@ -171,13 +176,18 @@
             return;
         }
         applyViewModel.AuthorizedUser = await authorization.GetAuthorizedUser();
+        if (applyViewModel.AuthorizedUser == null)
+        {
+            navigation.NavigateTo("/login");
+            return;
+        }
         applyViewModel.SelectedService = viewService;
         await applyServiceModal.Show();
         using (var db = new DatabaseContext())
         {
             applyViewModel.AvailableServiceDates = db.Shifts.Where(shift => shift.Timestamp > DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc) &&
                 shift.Master.MasterServices.Any(masterService => masterService.Service.Name == viewService.Name)).GroupBy(shift => shift.Timestamp)
-            .Select(group => group.Key.ToShortDateString()).ToList();
+            .Select(group => group.Key.ToLocalTime().Date.ToShortDateString()).ToList();
         }
         DateFieldVisibility = Visibility.Visible;
         StateHasChanged();
@@ -191,7 +201,7 @@
         {
             return Task.CompletedTask;
         }
-        parsedSelectedDate = DateTime.SpecifyKind(parsedSelectedDate, DateTimeKind.Utc);
+        parsedSelectedDate = DateTime.SpecifyKind(parsedSelectedDate.ToUniversalTime(), DateTimeKind.Utc);
         using (var db = new DatabaseContext())
         {
             applyViewModel.AvailableMasters = db.Shifts.Where(shift => shift.Timestamp > DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc) &&
@@ -211,8 +221,9 @@
         List<int> allHours = [9, 10, 11, 12, 13, 14, 15, 16,17,18];
         using (var db = new DatabaseContext())
         {
-            var busyHours = db.RenderedServices.Where(rService => rService.Timestamp.Date ==  DateTime.SpecifyKind(DateTime.Parse(applyViewModel.SelectedDateString), DateTimeKind.Utc).Date
-            && rService.Master.Id == applyViewModel.SelectedMasterId).ToList().Select(rService => rService.Timestamp.Hour).ToList();
+            DateTime p = DateTime.SpecifyKind(DateTime.Parse(applyViewModel.SelectedDateString).ToUniversalTime(), DateTimeKind.Utc).Date;
+            var busyHours = db.RenderedServices.Where(rService => rService.Timestamp.Date ==  DateTime.SpecifyKind(DateTime.Parse(applyViewModel.SelectedDateString), DateTimeKind.Utc).ToUniversalTime().Date
+            && rService.Master.Id == applyViewModel.SelectedMasterId).ToList().Select(rService => rService.Timestamp.ToLocalTime().Hour).ToList();
             applyViewModel.AvailableHours = allHours.Except(busyHours).ToList();
             Console.WriteLine("busyHours");
             Console.WriteLine(JsonConvert.SerializeObject(busyHours));
@@ -274,7 +285,8 @@
         base.OnAfterRender(firstRender);
         if (firstRender)
         {
-            
+
         }
     }
+
 }

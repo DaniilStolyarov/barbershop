@@ -7,7 +7,7 @@ namespace Barbershop.Model.ViewModel;
 
 public class ApplyServiceViewModel
 {
-    public User AuthorizedUser { get; set; }
+    public User? AuthorizedUser { get; set; }
     public Service SelectedService { get; set; }
     public string SelectedDateString { get; set; }
     public int SelectedMasterId { get; set; }

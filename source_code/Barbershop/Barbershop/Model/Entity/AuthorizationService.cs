@@ -101,7 +101,6 @@ public class AuthorizationService : IAuthorizationService
     public async Task Logout()
     {
         await localStorage.ClearAsync();
-        navigation.NavigateTo("/login");
         cachedUser = null;
         notifyLoggedOut();
         return;
