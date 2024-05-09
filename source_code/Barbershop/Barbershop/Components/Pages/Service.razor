@@ -1,9 +1,11 @@
 ﻿@page "/service/{categoryName}"
 @using Barbershop.Components.UI
+@using Barbershop.Model.Entity
 @using Barbershop.Model.ViewModel
 @using Microsoft.EntityFrameworkCore
 @using Newtonsoft.Json
 @inject NavigationManager navigation
+@inject IAuthorizationService authorization
 @rendermode InteractiveServer
 <Layout Overflow="Overflow.Auto" Display="Display.None.OnMobile.Flex">
     <LayoutContent Flex="Flex.Row.Wrap.AlignContent.Stretch" 
@@ -60,53 +62,91 @@
             <CloseButton />
         </ModalHeader>
         <ModalBody>
-            <Field @bind-Visibility="@DateFieldVisibility">
-                <FieldLabel>Дата посещения</FieldLabel>
-                <Select TValue="string" SelectedValue="@SelectedDateString" SelectedValueChanged="@selectedDateServiceChanged">
-                    <SelectItem>Не выбрано</SelectItem>
-                    <Repeater Items="@AvailableServiceDates" >
-                        <SelectItem Value="@context">@context</SelectItem>
-                    </Repeater>
-                </Select>
-            </Field>
-            <Field @bind-Visibility="@MasterFieldVisibility" >
-                <FieldLabel>Мастер</FieldLabel>
-                <Select TValue="int" SelectedValue="@SelectedMasterId" SelectedValueChanged="@selectedMasterChanged">
-                    <SelectItem>Не выбрано</SelectItem>
-                    <Repeater Items="@AvailableMasters">
-                        <SelectItem Value="@context.Id">@(context?.User.Name + " " + context?.User.Surname)</SelectItem>
-                    </Repeater>
-                </Select>
-            </Field>
-            <Field @bind-Visibility="@TimeFieldVisibility" >
-                <FieldLabel>Время (час)</FieldLabel>
-                <Select TValue="int" SelectedValue="@SelectedHour" SelectedValueChanged="@selectedHourChanged">
-                    <SelectItem>Не выбрано</SelectItem>
-                    <Repeater Items="@availableHours">
-                        <SelectItem Value="@context">@(context + ":00")</SelectItem>
-                    </Repeater>
-                </Select>
-            </Field>
+            <Fields>
+                <Field>
+                    <FieldLabel>Категория</FieldLabel>
+                    <Heading TextSize="TextSize.Heading5">
+                        @viewService.Category
+                    </Heading>
+                </Field>
+                <Field>
+                    <FieldLabel>Выбранная услуга</FieldLabel>
+                    <Heading TextSize="TextSize.Heading5">
+                         @viewService.Name
+                    </Heading>
+                </Field>
+            </Fields>
+            <Validations @ref="@applyValidationsRef">
+                <Validation Validator="@applyViewModel.checkDateIsValid">
+                    <Field @bind-Visibility="@DateFieldVisibility">
+                        <FieldLabel>Дата посещения</FieldLabel>
+                        <Select TValue="string" SelectedValue="@applyViewModel.SelectedDateString" SelectedValueChanged="@selectedDateServiceChanged">
+                            <ChildContent>
+                                <SelectItem>Не выбрано</SelectItem>
+                                <Repeater Items="@applyViewModel.AvailableServiceDates">
+                                    <SelectItem Value="@context">@context</SelectItem>
+                                </Repeater>
+                            </ChildContent>
+                            <Feedback>
+                                <ValidationError>Проверьте это поле</ValidationError>
+                            </Feedback>
+                        </Select>
+                    </Field>
+                </Validation>
+                <Validation Validator="@applyViewModel.checkMasterIsValid">
+                    <Field @bind-Visibility="@MasterFieldVisibility">
+                        <FieldLabel>Мастер</FieldLabel>
+                        <Select TValue="int" SelectedValue="@applyViewModel.SelectedMasterId" SelectedValueChanged="@selectedMasterChanged">
+                            <ChildContent>
+                                <SelectItem>Не выбрано</SelectItem>
+                                <Repeater Items="@applyViewModel.AvailableMasters">
+                                    <SelectItem Value="@context.Id">@(context?.User.Name + " " + context?.User.Surname)</SelectItem>
+                                </Repeater>
+                            </ChildContent>
+                            <Feedback>
+                                <ValidationError>Проверьте это поле</ValidationError>
+                            </Feedback>
+                        </Select>
+                    </Field>
+                </Validation>
+                <Validation Validator="@applyViewModel.checkHourIsValid">
+                    <Field @bind-Visibility="@TimeFieldVisibility">
+                        <FieldLabel>Время (час)</FieldLabel>
+                        <Select TValue="int" SelectedValue="@applyViewModel.SelectedHour" SelectedValueChanged="@selectedHourChanged">
+                            <ChildContent>
+                                <SelectItem Value="-1">Не выбрано</SelectItem>
+                                <Repeater Items="@applyViewModel.AvailableHours">
+                                    <SelectItem Value="@context">@(context + ":00")</SelectItem>
+                                </Repeater>
+                            </ChildContent>
+                            <Feedback>
+                                <ValidationError>Проверьте это поле</ValidationError>
+                            </Feedback>
+                        </Select>
+                    </Field>
+                </Validation>
+            </Validations>
         </ModalBody>
         <ModalFooter>
-            <Button Clicked="@handleConfirmService" Color="Color.Primary" @bind-Visibility="@ConfirmServiceButtonVisibility">Записаться</Button>
+            <Button 
+                Clicked="@handleConfirmService" 
+                Color="Color.Primary" 
+                @bind-Visibility="@ConfirmServiceButtonVisibility">Записаться - @viewService.PriceRubles руб.</Button>
         </ModalFooter>
     </ModalContent>
 </Modal>
-
+<ToastProvider Autohide="false">
+</ToastProvider>
 @code {
+    [Inject] IToastService ToastService { get; set; }
     [Parameter]
     public string categoryName { get; set; }
     private Barbershop.Service? viewService;
     public List<Barbershop.Service> categoryServices = [];
-
     Modal applyServiceModal;
-    List<string> AvailableServiceDates = [];
-    List<Master> AvailableMasters = [];
-    string SelectedDateString = "";
-    int SelectedMasterId;
-    List<int> availableHours = [];
-    int SelectedHour;
+    public ApplyServiceViewModel applyViewModel = new();
+
+    Validations applyValidationsRef;
     Visibility DateFieldVisibility = Visibility.Invisible,
     MasterFieldVisibility = Visibility.Invisible,
     TimeFieldVisibility = Visibility.Invisible,
@@ -124,34 +164,39 @@
             viewService = categoryServices[0];
         }
     }
-
-    void handleServiceApply()
+    async Task handleServiceApply()
     {
         if (viewService == null)
         {
             return;
         }
-        applyServiceModal.Show();
+        applyViewModel.AuthorizedUser = await authorization.GetAuthorizedUser();
+        applyViewModel.SelectedService = viewService;
+        await applyServiceModal.Show();
         using (var db = new DatabaseContext())
         {
-            AvailableServiceDates = db.Shifts.Where(shift => shift.Timestamp > DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc) &&
+            applyViewModel.AvailableServiceDates = db.Shifts.Where(shift => shift.Timestamp > DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc) &&
                 shift.Master.MasterServices.Any(masterService => masterService.Service.Name == viewService.Name)).GroupBy(shift => shift.Timestamp)
             .Select(group => group.Key.ToShortDateString()).ToList();
         }
         DateFieldVisibility = Visibility.Visible;
         StateHasChanged();
-
     }
 
     Task selectedDateServiceChanged(string value)
     {
-        SelectedDateString = value;
-
+        applyViewModel.SelectedDateString = value;
+        DateTime parsedSelectedDate;
+        if (!DateTime.TryParse(value, out parsedSelectedDate))
+        {
+            return Task.CompletedTask;
+        }
+        parsedSelectedDate = DateTime.SpecifyKind(parsedSelectedDate, DateTimeKind.Utc);
         using (var db = new DatabaseContext())
         {
-            AvailableMasters = db.Shifts.Where(shift => shift.Timestamp > DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc) &&
+            applyViewModel.AvailableMasters = db.Shifts.Where(shift => shift.Timestamp > DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc) &&
                 shift.Master.MasterServices.Any(masterService => masterService.Service.Name == viewService.Name))
-        .Where(shift => shift.Timestamp == DateTime.SpecifyKind(DateTime.Parse(SelectedDateString), DateTimeKind.Utc))
+        .Where(shift => shift.Timestamp == parsedSelectedDate)
         .Include(shift => shift.Master).Include(shift => shift.Master.User).Select(shift => shift.Master).ToList();
         }
         MasterFieldVisibility = Visibility.Visible;
@@ -162,30 +207,52 @@
     Task selectedMasterChanged(int masterId)
     {
         Console.WriteLine("Started!");
-        SelectedMasterId = masterId;
+        applyViewModel.SelectedMasterId = masterId;
         List<int> allHours = [9, 10, 11, 12, 13, 14, 15, 16,17,18];
         using (var db = new DatabaseContext())
         {
-            var busyHours = db.RenderedServices.Where(rService => rService.Timestamp == DateTime.SpecifyKind(DateTime.Parse(SelectedDateString), DateTimeKind.Utc)
-            && rService.Master.Id == SelectedMasterId).ToList().Select(rService => rService.Timestamp.Hour).ToList();
-            availableHours = allHours.Except(busyHours).ToList();
+            var busyHours = db.RenderedServices.Where(rService => rService.Timestamp.Date ==  DateTime.SpecifyKind(DateTime.Parse(applyViewModel.SelectedDateString), DateTimeKind.Utc).Date
+            && rService.Master.Id == applyViewModel.SelectedMasterId).ToList().Select(rService => rService.Timestamp.Hour).ToList();
+            applyViewModel.AvailableHours = allHours.Except(busyHours).ToList();
+            Console.WriteLine("busyHours");
+            Console.WriteLine(JsonConvert.SerializeObject(busyHours));
         }
 
         TimeFieldVisibility = Visibility.Visible;
         StateHasChanged();
         return Task.CompletedTask;
     }
-
     Task selectedHourChanged(int value)
     {
-        SelectedHour = value;
+        applyViewModel.SelectedHour = value;
         ConfirmServiceButtonVisibility = Visibility.Visible;
         StateHasChanged();
         return Task.CompletedTask;
     }
     async Task handleConfirmService()
     {
-        Console.WriteLine(JsonConvert.SerializeObject(new { SelectedDateString, SelectedMasterId, SelectedHour }));
+        bool isValidAll = await applyValidationsRef.ValidateAll();
+        if (!isValidAll) 
+        {
+            await ToastService.Error("Проверьте ошибки в форме", "Запись не была оформлена");
+            return;
+        }
+        Console.WriteLine(JsonConvert.SerializeObject(applyViewModel,
+        Formatting.Indented,
+        new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            }));
+        using (var db = new DatabaseContext())
+        {
+            await db.addRenderedService(applyViewModel);
+        }
+        await ToastService.Success(
+            new MarkupString("<p>Вы можете посмотреть записи в <a href='/home'>профиле</a></p>")
+            , "Запись оформлена");
+        await applyServiceModal.Hide();
+        applyViewModel = new();
+        StateHasChanged();
     }
     string getColorString(Barbershop.Service service)
     {
@@ -194,6 +261,7 @@
         string color = $"background-color: hwb({256 * index / totalCount} 60% 5%);";
         return color;
     }
+
     void toggleActiveViewService(Barbershop.Service service)
     {
         Console.WriteLine(service.Name);
@@ -206,7 +274,7 @@
         base.OnAfterRender(firstRender);
         if (firstRender)
         {
-           
+            
         }
     }
 }

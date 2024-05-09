@@ -77,6 +77,39 @@ public class DatabaseContext : DbContext
         });
         await SaveChangesAsync();
     }
+    public async Task addRenderedService(ApplyServiceViewModel applyViewModel)
+    {
+        // check if User is Client
+        if (applyViewModel.AuthorizedUser.Role != RoleTypes.Client) return;
+        if (!Clients.Any(client => client.User.Id == applyViewModel.AuthorizedUser.Id)) return;
+        Client? userClient = Clients.Where(client => client.User.Id == applyViewModel.AuthorizedUser.Id).FirstOrDefault();
+        Master? serviceMaster = Masters.Where(master => master.Id == applyViewModel.SelectedMasterId).SingleOrDefault();
+        if (userClient == null) return;
+        if (serviceMaster == null) return;
+
+        decimal totalPrice = applyViewModel.SelectedService.PriceRubles - userClient.BonusBalance;
+        if (totalPrice < 0)
+        {
+            userClient.BonusBalance = -totalPrice;
+            totalPrice = 0;
+        }
+        else
+        {
+            userClient.BonusBalance = 0;
+        }
+        RenderedServices.Add(new()
+        {
+            Client = userClient,
+            IsComplete = false,
+            Mark = 0,
+            Master = serviceMaster,
+            Service = Services.Where(service => service.Id == applyViewModel.SelectedService.Id).First(),
+            Timestamp = DateTime.SpecifyKind(DateTime.Parse(applyViewModel.SelectedDateString), DateTimeKind.Utc)
+            .AddHours(applyViewModel.SelectedHour),
+            TotalPriceRubles = totalPrice
+        });
+        SaveChanges();
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=Barbershop;Username=postgres;Password=postgres");

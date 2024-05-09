@@ -37,7 +37,9 @@
             @if (authorization.CachedUser != null)
             {
             <BarItem>
-                <BarLink TextColor="TextColor.Primary" Clicked="() => {authorization.Logout();}">Выйти</BarLink>
+                <BarLink TextColor="TextColor.Primary" To="/home">
+                    <BarIcon IconName="IconName.User"></BarIcon>
+                </BarLink>
             </BarItem>
             }
         </BarEnd>
