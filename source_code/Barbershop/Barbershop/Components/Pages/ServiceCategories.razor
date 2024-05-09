@@ -1,24 +1,28 @@
 ﻿@page "/service_categories"
 @page "/"
-<Layout >
+@using Barbershop.Model.ViewModel
+<Layout Background="Background.Dark">
+    <Heading Margin="Margin.Is4.FromTop " TextColor="TextColor.Light" TextAlignment="TextAlignment.Center">Услуги</Heading>
     <LayoutContent Flex="Flex.Row.JustifyContent.Center.Wrap.OnMobile.AlignContent.Start" 
-        Background="Background.Dark"
-        Padding="Padding.Is4.OnY">
+        Padding="Padding.Is4.FromBottom">
         <Repeater Items="Categories">
-            <Card Background=Background.Secondary
+            <Card Background=Background.Secondary 
             Height="Height.Is25.OnMobile"
             Width="Width.Is50.OnMobile.Is25.OnDesktop"
             Margin="Margin.Is0.OnMobile.Is5.OnDesktop"
             Padding="Padding.Is0.OnMobile"
-            Style="cursor:pointer">
+                  Position="Position.Relative">
                 <CardBody Flex="Flex.JustifyContent.Center.AlignItems.Center"
-                Style="@context.BackgroundImageParameterText">
+                          Style="@context.BackgroundImageParameterText" >
                 </CardBody>
-                <CardTitle TextAlignment="TextAlignment.Center"
-                           TextWeight="TextWeight.Bold"
-                           TextSize="TextSize.Medium"
-                            Style="white-space:nowrap;">@context.Name</CardTitle>
-            </Card>
+                <Button TextAlignment="TextAlignment.Center"
+                        TextWeight="TextWeight.Bold"
+                        TextSize="TextSize.Medium"
+                        Style="white-space:nowrap;" Type="ButtonType.Link" To="@context.Link" StretchedLink Clicked="@CardClickedHandler">
+                    @context.Name
+                </Button>
+
+                </Card>
         </Repeater>
     </LayoutContent>
 </Layout>
@@ -34,14 +38,15 @@
             Categories = db.Services.GroupBy(service => service.Category).Select(category => new CategoryViewModel()
             {
                 Name = category.Key,
+                Link = $"/service/{category.Key}",
                     BackgroundImageParameterText = $"background: url('{category.First().ImageHref}');background-size:cover;background-repeat:no-repeat;background-position:center;"
             }).ToList();
         }
     }
 
-    class CategoryViewModel
+    
+    public void CardClickedHandler()
     {
-        public string Name { get; set; }
-        public string BackgroundImageParameterText { get; set; }
+        Console.WriteLine("Clicked card!");
     }
 }

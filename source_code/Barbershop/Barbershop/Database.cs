@@ -32,6 +32,10 @@ public class DatabaseContext : DbContext
             Database.EnsureCreated();
 
     }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+
+    }
     public async Task AddUserClient(RegisterViewModel RegisterModel)
     {
         var addedUser = Users.Add(new User()
@@ -50,6 +54,26 @@ public class DatabaseContext : DbContext
             User = Users.Single(user => user.Id == addedUser.Entity.Id),
             Sex = RegisterModel.Sex,
             BonusBalance = 0
+        });
+        await SaveChangesAsync();
+    }
+    public async Task AddUserMaster(RegisterMasterViewModel RegisterModel)
+    {
+        var addedUser = Users.Add(new User()
+        {
+            Name = RegisterModel.Name,
+            Surname = RegisterModel.Surname,
+            Lastname = RegisterModel.Lastname,
+            Password = RegisterModel.Password,
+            Email = RegisterModel.Email,
+            PhoneNumber = RegisterModel.PhoneNumber,
+            Role = RoleTypes.Master
+        });
+        await SaveChangesAsync();
+        Masters.Add(new Master()
+        {
+            User = Users.Single(user => user.Id == addedUser.Entity.Id),
+            Skill = RegisterModel.Skill
         });
         await SaveChangesAsync();
     }
@@ -104,6 +128,7 @@ public class Service
     public decimal PriceRubles { get; set; }
     public string Sex { get; set; }
     public string ImageHref { get; set; }
+    public string Description { get; set; }
     public ICollection<MasterService> MasterServices { get; set; } = [];
 }
 

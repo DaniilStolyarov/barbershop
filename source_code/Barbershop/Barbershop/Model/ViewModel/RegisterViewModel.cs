@@ -29,9 +29,12 @@ public class RegisterViewModel
     [Required(ErrorMessage = "Это поле обязательно")]
     [SexAttribute]
     public string Sex { get; set; } = "Мужской";
-
 }
 
+public class RegisterMasterViewModel : RegisterViewModel
+{
+    public string Skill { get; set; } = "Junior";
+}
 public sealed class SexAttribute : ValidationAttribute
 {
 

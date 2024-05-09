@@ -1,4 +1,4 @@
-﻿<Div Style="@StyleParameter" Width="@Width" Height="@Height"/>
+﻿<Div Margin="@Margin" Style="@StyleParameter" Width="@Width" Height="@Height" />
 
 @code {
     [Parameter]
@@ -7,11 +7,15 @@
     public IFluentSizingMinMaxViewportOnBreakpoint Width { get; set; } = Blazorise.Width.Is100;
     [Parameter]
     public IFluentSizingMinMaxViewportOnBreakpoint Height { get; set; } = Blazorise.Height.Is100;
-
+    [Parameter]
+    public string Style { get; set; } = "";
+    [Parameter]
+    public IFluentSpacingOnBreakpointWithSideAndSize Margin { get; set; } = Blazorise.Margin.Is0;
     string StyleParameter = "";
 
     protected override void OnParametersSet()
     {
-        StyleParameter = $"background: url('{ImageHref}');";
+        StyleParameter = $"background: url('{ImageHref}');{Style}";
+
     }
 }
