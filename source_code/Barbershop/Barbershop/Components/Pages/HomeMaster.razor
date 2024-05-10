@@ -1,0 +1,232 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Barbershop.Model.Entity
+@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+@inject NavigationManager navigation
+@inject IAuthorizationService authorization
+@inject IToastService ToastService
+<Div Padding=Padding.Is4.OnDesktop.Is3.OnMobile >
+    <Div Flex="Flex.Row.Wrap">
+        <Card Padding=Padding.Is5.OnDesktop.Is3.OnMobile
+              Width="Width.Is50.OnQuadHD.Is100.OnMobile">
+            <CardTitle>
+                <Heading>Здравствуйте, @(AuthorizedUser?.Name + " " + AuthorizedUser?.Lastname)!</Heading>
+            </CardTitle>
+            <Form>
+                <Div>
+                    <Field>
+                        <FieldLabel>Email</FieldLabel>
+                        <TextEdit Disabled Text="@AuthorizedUser?.Email"></TextEdit>
+                    </Field>
+                    <Field>
+                        <FieldLabel>Телефон</FieldLabel>
+                        <TextEdit Disabled Text="@AuthorizedUser?.PhoneNumber"></TextEdit>
+                    </Field>
+                    <Field>
+                        <FieldLabel>Роль</FieldLabel>
+                        <TextEdit Disabled Text="@AuthorizedUser?.Role"></TextEdit>
+                    </Field>
+                    <Field>
+                        <FieldLabel>Уровень</FieldLabel>
+                        <TextEdit Disabled Text="@masterData?.Skill"></TextEdit>
+                    </Field>
+
+                    <Button Clicked="() => {authorization.Logout(); navigation.NavigateTo(String.Empty, true);}"
+                            Width="Width.Is100" Color="Color.Danger">
+                        Выйти
+                    </Button>
+                </Div>
+            </Form>
+        </Card>
+        <Card Padding=Padding.Is5.OnDesktop.Is3.OnMobile
+              Width="Width.Is50.OnQuadHD.Is100.OnMobile">
+            <Heading>Мои Смены</Heading>
+            <Alert Visible="true" Color="Color.Warning">
+                <AlertDescription>
+                    Если вы хотите отменить смену, обратитесь к администратору.
+                </AlertDescription>
+            </Alert>
+            <Div Style="overflow: auto; height: 290px">
+                <Table>
+                    <TableHeader>
+                        <TableHeaderCell>Дата</TableHeaderCell>
+                    </TableHeader>
+                    <TableBody>
+                        <Repeater Items="@MasterShifts">
+                            <TableRow>
+                                <TableRowCell 
+                                    Color="@(context.Timestamp.ToLocalTime() == DateTime.Now.Date ? Color.Warning : Color.Default)">
+                                    @context.Timestamp.ToLocalTime().ToShortDateString()</TableRowCell>
+                            </TableRow>
+                        </Repeater>
+                    </TableBody>
+                </Table>
+            </Div>
+            <Button Color="Color.Primary" Clicked="() => {AddShiftModalRef.Show();}">
+                <Icon Name="IconName.UserPlus" IconSize="IconSize.Large"></Icon>
+            </Button>
+        </Card>
+        <Card Padding=Padding.Is5.OnDesktop.Is3.OnMobile
+              Width="Width.Is100.OnQuadHD.Is100.OnMobile"
+              Overflow="Overflow.Auto">
+            <Heading>Мои Клиенты</Heading>
+            <Table>
+                <TableHeader>
+                    <TableHeaderCell>Код</TableHeaderCell>
+                    <TableHeaderCell>Имя</TableHeaderCell>
+                    <TableHeaderCell>Категория</TableHeaderCell>
+                    <TableHeaderCell>Услуга</TableHeaderCell>
+                    <TableHeaderCell>Стоимость</TableHeaderCell>
+                    <TableHeaderCell>Оценка</TableHeaderCell>
+                </TableHeader>
+                <TableBody>
+                    <TableRowGroup Title="Будущие" Expanded>
+                        <Repeater Items="@MasterRenderedServicesFuture">
+                            <TableRow>
+                                <TableRowCell>@context.Id</TableRowCell>
+                                <TableHeaderCell>@context.Client.User.Name</TableHeaderCell>
+                                <TableHeaderCell>@context.Service.Category</TableHeaderCell>
+                                <TableHeaderCell>@context.Service.Name</TableHeaderCell>
+                                <TableHeaderCell>@context.TotalPriceRubles</TableHeaderCell>
+                                <TableHeaderCell>@(context.Mark == 0 ? "Нет" : context.Mark)</TableHeaderCell>
+                            </TableRow>
+                        </Repeater>
+                    </TableRowGroup>
+
+                    <TableRowGroup Title="Прошедшие">
+                        <Repeater Items="@MasterRenderedServicesPast">
+                            <TableRow>
+                                <TableRowCell>@context.Id</TableRowCell>
+                                <TableHeaderCell>@context.Client.User.Name</TableHeaderCell>
+                                <TableHeaderCell>@context.Service.Category</TableHeaderCell>
+                                <TableHeaderCell>@context.Service.Name</TableHeaderCell>
+                                <TableHeaderCell>@context.TotalPriceRubles</TableHeaderCell>
+                                <TableHeaderCell>@(context.Mark == 0 ? "Нет" : context.Mark)</TableHeaderCell>
+                            </TableRow>
+                        </Repeater>
+                    </TableRowGroup>
+                </TableBody>
+            </Table>
+        </Card>
+        
+    </Div>
+</Div>
+<Modal @ref="@AddShiftModalRef">
+    <ModalContent >
+        <ModalHeader>
+            <ModalTitle>
+                Добавить смену
+            </ModalTitle>
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <Alert Visible="true" Color="Color.Danger">
+                <AlertDescription>
+                    Указав смену, вы позволите клиентам записаться к вам. Отменить её можно будет только через администратора.
+                </AlertDescription>
+            </Alert>
+            <Validation Validator="@CheckDateIsValid" @ref="@DateValidation">
+                <Field>
+                    <FieldLabel>Дата</FieldLabel>
+                    <DatePicker TValue="DateTime" @bind-Date="@addedShiftTime" DisplayFormat="d MMMM yyyy">
+                        <Feedback>
+                            <ValidationError></ValidationError>
+                        </Feedback>
+                    </DatePicker>
+                </Field>
+            </Validation>
+            
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Danger" Clicked="@addShift">Подтвердить</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+<ToastProvider></ToastProvider>
+@code {
+    [Required]
+    [Parameter]
+    public User AuthorizedUser { get; set; }
+    Master? masterData { get; set; }
+    List<RenderedService> MasterRenderedServicesFuture = [];
+    List<RenderedService> MasterRenderedServicesPast = [];
+    List<Shift> MasterShifts = [];
+    Modal AddShiftModalRef;
+    DateTime addedShiftTime = DateTime.Now.Date.AddDays(1);
+    Validation DateValidation;
+    protected override void OnParametersSet()
+    {
+        using (var db = new DatabaseContext())
+        {
+            masterData = db.Masters.Where(master => master.User.Id == AuthorizedUser.Id)
+            .SingleOrDefault();
+            if (masterData == null)
+            {
+                navigation.NavigateTo("/notfound");
+                return;
+            }
+            MasterRenderedServicesFuture = db.RenderedServices
+            .Where(renderedService => renderedService.Master.Id == masterData.Id)
+            .Where(renderedService => renderedService.IsComplete == false)
+            .Include(renderedService => renderedService.Service)
+            .Include(renderedService => renderedService.Client)
+            .Include(renderedService => renderedService.Client.User)
+            .Include(renderedService => renderedService.Master)
+            .ToList();
+
+            MasterRenderedServicesPast = db.RenderedServices
+            .Where(renderedService => renderedService.Master.Id == masterData.Id)
+            .Where(renderedService => renderedService.IsComplete == true)
+            .Include(renderedService => renderedService.Service)
+            .Include(renderedService => renderedService.Client)
+            .Include(renderedService => renderedService.Client.User)
+            .Include(renderedService => renderedService.Master)
+            .ToList();
+
+            MasterShifts = db.Shifts
+            .Where(shift => shift.Master.Id == masterData.Id)
+            .OrderByDescending(shift => shift.Timestamp)
+            .ToList();
+        }
+    }
+
+    void CheckDateIsValid(ValidatorEventArgs eventArgs)
+    {
+        DateTime enteredDate = ((DateTime[])(eventArgs.Value))[0];
+        if (enteredDate < DateTime.Now.Date)
+        {
+            eventArgs.Status = ValidationStatus.Error;
+            eventArgs.ErrorText = "Нельзя выбрать прошедший день";
+            return;
+        }
+        else
+        {
+            eventArgs.Status = ValidationStatus.Success;
+            return;
+        }
+    }
+
+    void addShift()
+    {
+        if (DateValidation.Validate() != ValidationStatus.Success) return;
+        if (masterData == null) return; 
+        using (var db = new DatabaseContext())
+        {
+            // check that it doesn`t exist yet
+            bool existsAlready = db.Shifts.Any(shift => shift.Master.Id == masterData.Id && shift.Timestamp == DateTime.SpecifyKind(addedShiftTime.ToUniversalTime(), DateTimeKind.Utc));
+            if (existsAlready)
+            {
+                ToastService.Error("Смена не была добавлена, потому что уже существует", "Ошибка");
+                return;
+            }
+            db.Shifts.Add(new()
+            {
+                Master = db.Masters.Where(master => master.Id == masterData.Id).SingleOrDefault(),
+                Timestamp = DateTime.SpecifyKind(addedShiftTime.ToUniversalTime(), DateTimeKind.Utc)
+            });
+            db.SaveChanges();
+        }
+        AddShiftModalRef.Hide();
+        navigation.Refresh(true);
+    }
+}

@@ -9,12 +9,6 @@
 @rendermode InteractiveServer
 
 <Div Flex="Flex.Row.Wrap">
-@*     <Div Background="Background.Light"
-          Width="Width.Is100.OnMobile.Is50.OnDesktop"
-          Padding="Padding.Is5.OnDesktop.Is2.OnMobile">
-        
-   
-    </Div> *@
     <Card Background="Background.Light"
           Width="Width.Is100.OnMobile.Is50.OnDesktop"
           Padding="Padding.Is2.OnX.Is2.OnY.OnMobile.Is5.OnDesktop">
@@ -181,13 +175,24 @@
             navigation.NavigateTo("/login");
             return;
         }
+        using (var db = new DatabaseContext())
+        {
+            if (!db.Clients.Any(client => client.User.Id == applyViewModel.AuthorizedUser.Id))
+            {
+                await ToastService.Error("Вы мастер, а не клиент", "Ошибка");
+                return;
+            }
+        }
         applyViewModel.SelectedService = viewService;
         await applyServiceModal.Show();
         using (var db = new DatabaseContext())
         {
             applyViewModel.AvailableServiceDates = db.Shifts.Where(shift => shift.Timestamp > DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc) &&
                 shift.Master.MasterServices.Any(masterService => masterService.Service.Name == viewService.Name)).GroupBy(shift => shift.Timestamp)
-            .Select(group => group.Key.ToLocalTime().Date.ToShortDateString()).ToList();
+            .Select(group => group.Key)
+            .OrderByDescending(date => date)
+            .Select(date => date.ToLocalTime().Date.ToShortDateString())
+            .ToList();
         }
         DateFieldVisibility = Visibility.Visible;
         StateHasChanged();

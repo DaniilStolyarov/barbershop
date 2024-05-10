@@ -10,6 +10,10 @@
 {
     <HomeClient AuthorizedUser="@AuthorizedUser"></HomeClient>
 }
+@if (AuthorizedUser?.Role == RoleTypes.Master)
+{
+    <HomeMaster AuthorizedUser="@AuthorizedUser"></HomeMaster>
+}
 @code
 {
     User? AuthorizedUser;

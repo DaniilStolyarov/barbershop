@@ -328,7 +328,7 @@ public class TestData
         db.Shifts.Add(new()
         {
             Master = Masters[1],
-            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-06-02").ToUniversalTime(), DateTimeKind.Utc),
+            Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-05-02").ToUniversalTime(), DateTimeKind.Utc),
         });
         db.SaveChanges();
     }
