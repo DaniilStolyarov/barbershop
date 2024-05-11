@@ -15,10 +15,14 @@
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.4\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.4\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.visualstudio.azure.containers.tools.targets\1.19.6\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props" Condition="Exists('$(NuGetPackageRoot)microsoft.visualstudio.azure.containers.tools.targets\1.19.6\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\8.0.4\build\Microsoft.AspNetCore.Identity.UI.props" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\8.0.4\build\Microsoft.AspNetCore.Identity.UI.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise\1.5.2\buildTransitive\Blazorise.props" Condition="Exists('$(NuGetPackageRoot)blazorise\1.5.2\buildTransitive\Blazorise.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.loadingindicator\1.5.2\buildTransitive\Blazorise.LoadingIndicator.props" Condition="Exists('$(NuGetPackageRoot)blazorise.loadingindicator\1.5.2\buildTransitive\Blazorise.LoadingIndicator.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.icons.fontawesome\1.5.2\buildTransitive\Blazorise.Icons.FontAwesome.props" Condition="Exists('$(NuGetPackageRoot)blazorise.icons.fontawesome\1.5.2\buildTransitive\Blazorise.Icons.FontAwesome.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.bootstrap\1.5.2\buildTransitive\Blazorise.Bootstrap.props" Condition="Exists('$(NuGetPackageRoot)blazorise.bootstrap\1.5.2\buildTransitive\Blazorise.Bootstrap.props')" />
   </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgMicrosoft_VisualStudio_Azure_Containers_Tools_Targets Condition=" '$(PkgMicrosoft_VisualStudio_Azure_Containers_Tools_Targets)' == '' ">C:\Users\Danissimo\.nuget\packages\microsoft.visualstudio.azure.containers.tools.targets\1.19.6</PkgMicrosoft_VisualStudio_Azure_Containers_Tools_Targets>
+  </PropertyGroup>
 </Project>

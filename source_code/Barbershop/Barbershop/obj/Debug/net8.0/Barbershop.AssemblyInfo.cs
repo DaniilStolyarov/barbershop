@@ -12,10 +12,11 @@ using System;
 using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("4ff0ee37-4cd4-4d6e-94ba-3c48a1825ff6")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Barbershop")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04eb7c69e467af5c8c4caa440735986ac02556c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c860fbe131b57d49bd71f51c4c197c7e4c4e9170")]
 [assembly: System.Reflection.AssemblyProductAttribute("Barbershop")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Barbershop")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -112,7 +112,9 @@ public class DatabaseContext : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=Barbershop;Username=postgres;Password=postgres");
+        string connectionString = Environment.GetEnvironmentVariable("DATABASE_STRING");
+        Console.WriteLine("DATABASE_STRING: " + connectionString);
+        optionsBuilder.UseNpgsql(connectionString);
     }
 }
 public class User

@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|d:\\2 kurs\\spo\\barbershop\\source_code\\barbershop\\barbershop\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|solutionrelative:barbershop\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|d:\\2 kurs\\spo\\barbershop\\source_code\\barbershop\\barbershop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|solutionrelative:barbershop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|d:\\2 kurs\\spo\\barbershop\\source_code\\barbershop\\barbershop\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|solutionrelative:barbershop\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|d:\\2 kurs\\spo\\barbershop\\source_code\\barbershop\\barbershop\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|solutionrelative:barbershop\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|d:\\2 kurs\\spo\\barbershop\\source_code\\barbershop\\barbershop\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|solutionrelative:barbershop\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|d:\\2 kurs\\spo\\barbershop\\source_code\\barbershop\\barbershop\\components\\pages\\homemaster.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|solutionrelative:barbershop\\components\\pages\\homemaster.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -78,10 +98,6 @@
       "RelativeMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|solutionrelative:barbershop\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|d:\\2 kurs\\spo\\barbershop\\source_code\\barbershop\\barbershop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|solutionrelative:barbershop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|d:\\2 kurs\\spo\\barbershop\\source_code\\barbershop\\barbershop\\model\\viewmodel\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{11BC23EA-759F-474B-8D0A-250925BCB606}|Barbershop\\Barbershop.csproj|solutionrelative:barbershop\\model\\viewmodel\\registerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -105,11 +121,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Service.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\Service.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\Service.razor",
@@ -118,12 +134,11 @@
               "ViewState": "AQIAALMAAAAAAAAAAAAAAMAAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-05-08T16:18:33.07Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "ApplyServiceViewModel.cs",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Model\\ViewModel\\ApplyServiceViewModel.cs",
               "RelativeDocumentMoniker": "Barbershop\\Model\\ViewModel\\ApplyServiceViewModel.cs",
@@ -136,7 +151,58 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\appsettings.json",
+              "RelativeDocumentMoniker": "Barbershop\\appsettings.json",
+              "ToolTip": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\appsettings.json",
+              "RelativeToolTip": "Barbershop\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-05-11T01:03:30.587Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Database.cs",
+              "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Database.cs",
+              "RelativeDocumentMoniker": "Barbershop\\Database.cs",
+              "ToolTip": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Database.cs",
+              "RelativeToolTip": "Barbershop\\Database.cs",
+              "ViewState": "AQIAAGgAAAAAAAAAAAAmwHMAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-11T01:00:27.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Barbershop\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Barbershop\\Properties\\launchSettings.json",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAUwBAAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-05-10T23:18:42.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Dockerfile",
+              "RelativeDocumentMoniker": "Barbershop\\Dockerfile",
+              "ToolTip": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Dockerfile",
+              "RelativeToolTip": "Barbershop\\Dockerfile",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABYAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-05-10T23:11:24.654Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "HomeMaster.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\HomeMaster.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\HomeMaster.razor",
@@ -144,12 +210,11 @@
               "RelativeToolTip": "Barbershop\\Components\\Pages\\HomeMaster.razor",
               "ViewState": "AQIAACQAAAAAAAAAAAAAAC4AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-10T10:17:28.642Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T10:17:28.642Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "BlockImage.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\UI\\BlockImage.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\UI\\BlockImage.razor",
@@ -161,18 +226,17 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "Renderer.cs",
               "DocumentMoniker": "C:\\Users\\Danissimo\\AppData\\Local\\Temp\\.vsdbgsrc\\3eefc0f4d0519e1d9937a99eaef743e0ca5e7ba194c9fba92a85e7dcad52d774\\Renderer.cs",
               "ToolTip": "C:\\Users\\Danissimo\\AppData\\Local\\Temp\\.vsdbgsrc\\3eefc0f4d0519e1d9937a99eaef743e0ca5e7ba194c9fba92a85e7dcad52d774\\Renderer.cs",
               "ViewState": "AQIAAF8CAAAAAAAAAAAEwGcCAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-09T18:32:18.712Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-09T18:32:18.712Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "Reviews.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\Reviews.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\Reviews.razor",
@@ -180,12 +244,11 @@
               "RelativeToolTip": "Barbershop\\Components\\Pages\\Reviews.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-09T18:20:46.578Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-09T18:20:46.578Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "Register.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\Register.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\Register.razor",
@@ -197,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 18,
               "Title": "RatingViewModel.cs",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Model\\ViewModel\\RatingViewModel.cs",
               "RelativeDocumentMoniker": "Barbershop\\Model\\ViewModel\\RatingViewModel.cs",
@@ -209,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "HomeClient.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\HomeClient.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\HomeClient.razor",
@@ -217,12 +280,11 @@
               "RelativeToolTip": "Barbershop\\Components\\Pages\\HomeClient.razor",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAsAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-09T16:54:06.365Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-09T16:54:06.365Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "Home.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\Home.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\Home.razor",
@@ -230,12 +292,11 @@
               "RelativeToolTip": "Barbershop\\Components\\Pages\\Home.razor",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAABEAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-09T16:31:19.223Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-09T16:31:19.223Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 23,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Layout\\MainLayout.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Layout\\MainLayout.razor",
@@ -247,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 20,
               "Title": "AuthorizationService.cs",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Model\\Entity\\AuthorizationService.cs",
               "RelativeDocumentMoniker": "Barbershop\\Model\\Entity\\AuthorizationService.cs",
@@ -259,19 +320,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Program.cs",
               "RelativeDocumentMoniker": "Barbershop\\Program.cs",
               "ToolTip": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Program.cs",
               "RelativeToolTip": "Barbershop\\Program.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAABYAAAAaAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-09T12:17:34.34Z"
+              "WhenOpened": "2024-05-09T12:17:34.34Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "ServiceCategories.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\ServiceCategories.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\ServiceCategories.razor",
@@ -283,7 +345,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 24,
               "Title": "RegisterViewModel.cs",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Model\\ViewModel\\RegisterViewModel.cs",
               "RelativeDocumentMoniker": "Barbershop\\Model\\ViewModel\\RegisterViewModel.cs",
@@ -295,7 +357,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 25,
               "Title": "About.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\About.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\About.razor",
@@ -307,7 +369,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 26,
               "Title": "Footer.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\UI\\Footer.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\UI\\Footer.razor",
@@ -319,7 +381,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 21,
               "Title": "NavigationBar.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\UI\\NavigationBar.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\UI\\NavigationBar.razor",
@@ -331,7 +393,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 22,
               "Title": "App.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\App.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\App.razor",
@@ -343,7 +405,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "FillTestDataService.cs",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Model\\Entity\\FillTestDataService.cs",
               "RelativeDocumentMoniker": "Barbershop\\Model\\Entity\\FillTestDataService.cs",
@@ -351,12 +413,11 @@
               "RelativeToolTip": "Barbershop\\Model\\Entity\\FillTestDataService.cs",
               "ViewState": "AQIAADUBAAAAAAAAAAA9wEoBAABEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-08T17:20:17.017Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-08T17:20:17.017Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 27,
               "Title": "CategoryViewModel.cs",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Model\\ViewModel\\CategoryViewModel.cs",
               "RelativeDocumentMoniker": "Barbershop\\Model\\ViewModel\\CategoryViewModel.cs",
@@ -368,7 +429,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "NotFound.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\NotFound.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\NotFound.razor",
@@ -376,12 +437,11 @@
               "RelativeToolTip": "Barbershop\\Components\\Pages\\NotFound.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-08T16:29:38.998Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-08T16:29:38.998Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "Error.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\Error.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\Error.razor",
@@ -393,7 +453,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "Login.razor",
               "DocumentMoniker": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Components\\Pages\\Login.razor",
               "RelativeDocumentMoniker": "Barbershop\\Components\\Pages\\Login.razor",
@@ -401,8 +461,7 @@
               "RelativeToolTip": "Barbershop\\Components\\Pages\\Login.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-08T15:48:27.576Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-08T15:48:27.576Z"
             }
           ]
         }

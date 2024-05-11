@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7E4GLc3lTius6nIcU2U1V5y11YZdJr/4013sfW/gn3/pHQ1Gw5O9zyE9Bu1KrEISHuknukTDCxMSMzg/Epux4w==",
+  "dgSpecHash": "630pqbNeieDr5JNwi6714IhX9VsbToK4xbta+Ua8sNUBFKn+xZ8w+I6d11GaKAtdDD0h0JUk/l5FYWKnkgkVog==",
   "success": true,
   "projectFilePath": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Barbershop.csproj",
   "expectedPackageFiles": [
@@ -37,6 +37,7 @@
     "C:\\Users\\Danissimo\\.nuget\\packages\\microsoft.extensions.options\\8.0.2\\microsoft.extensions.options.8.0.2.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\microsoft.jsinterop\\8.0.4\\microsoft.jsinterop.8.0.4.nupkg.sha512",
+    "C:\\Users\\Danissimo\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.6\\microsoft.visualstudio.azure.containers.tools.targets.1.19.6.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\npgsql\\8.0.2\\npgsql.8.0.2.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.2\\npgsql.entityframeworkcore.postgresql.8.0.2.nupkg.sha512",
