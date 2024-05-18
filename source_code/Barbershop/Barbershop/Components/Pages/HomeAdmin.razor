@@ -1,0 +1,36 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Barbershop.Model.Entity
+@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+@inject NavigationManager navigation
+@inject IAuthorizationService authorization
+@inject IToastService ToastService
+<Div Padding=Padding.Is4.OnDesktop.Is3.OnMobile>
+    <Div Flex="Flex.Row.Wrap">
+        <Card Padding=Padding.Is5.OnDesktop.Is3.OnMobile
+              Width="Width.Is50.OnQuadHD.Is100.OnMobile">
+        </Card>
+        <Card Padding=Padding.Is5.OnDesktop.Is3.OnMobile
+              Width="Width.Is50.OnQuadHD.Is100.OnMobile">
+        </Card>
+    </Div>
+</Div>
+
+@code {
+    List<Master> viewMasters = [];
+    protected override void OnParametersSet()
+    {
+        using (var db = new DatabaseContext())
+        {
+            viewMasters = db.Masters
+                            .Include(master => master.User)
+                            .Include(master => master.MasterServices)
+                            .ToList();
+        }
+    }
+
+    void UpdateMasterData()
+    {
+        
+    }
+}

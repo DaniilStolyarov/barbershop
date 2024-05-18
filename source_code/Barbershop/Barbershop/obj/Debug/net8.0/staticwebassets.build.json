@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "l3peyvIYy+TQYDF54DaW0mjqKHPzkv0u5pTTE5gtrIQ=",
+  "Hash": "6usUblobJM4DAdjTUoD3XWJ42uXYtfrbkqVe66zjzmA=",
   "Source": "Barbershop",
   "BasePath": "_content/Barbershop",
   "Mode": "Default",
@@ -2599,6 +2599,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\static\\images\\Services\\Beard\\Short.jpg"
+    },
+    {
+      "Identity": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Beard\\Zoom_cm_fo42pnktZ9vvrZo4_mFZArxehJMuxpy+bQbqw-PWw1uuuQ9ROtu2-+@E0C7JvSdS7obYX8A_kb9838bd976c304ab_.exe",
+      "SourceId": "Barbershop",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\",
+      "BasePath": "_content/Barbershop",
+      "RelativePath": "static/images/Services/Beard/Zoom_cm_fo42pnktZ9vvrZo4_mFZArxehJMuxpy+bQbqw-PWw1uuuQ9ROtu2-+@E0C7JvSdS7obYX8A_kb9838bd976c304ab_.exe",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\static\\images\\Services\\Beard\\Zoom_cm_fo42pnktZ9vvrZo4_mFZArxehJMuxpy+bQbqw-PWw1uuuQ9ROtu2-+@E0C7JvSdS7obYX8A_kb9838bd976c304ab_.exe"
     },
     {
       "Identity": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\wwwroot\\static\\images\\Services\\Coloring\\Coloring.jpg",
