@@ -1,0 +1,50 @@
+﻿@using Microsoft.EntityFrameworkCore
+<Heading TextSize="TextSize.Heading4">Продажи</Heading>
+<Field>
+    <FieldLabel>Дата</FieldLabel>
+    <DatePicker TValue="DateTime" StaticPicker="false" Date=selectedDate DateChanged="OnSellsDateSelected"></DatePicker>
+</Field>
+<Table>
+    <TableHeader>
+        <TableHeaderCell>Клиент</TableHeaderCell>
+        <TableHeaderCell>Мастер</TableHeaderCell>
+        <TableHeaderCell>Услуга</TableHeaderCell>
+        <TableHeaderCell>Цена</TableHeaderCell>
+    </TableHeader>
+    <TableBody>
+        <Repeater Items="@renderedServices">
+            <TableRow>
+                <TableRowCell>@context.Client.User.Surname @context.Client.User.Name @context.Client.User.Lastname</TableRowCell>
+                <TableRowCell>@context.Master.User.Surname @context.Master.User.Name @context.Master.User.Lastname</TableRowCell>
+                <TableRowCell>@context.Service.Category @context.Service.Name</TableRowCell>
+                <TableRowCell>@context.TotalPriceRubles руб.</TableRowCell>
+            </TableRow>
+        </Repeater>
+    </TableBody>
+</Table>
+@* <Heading TextSize="TextSize.Heading4">Доход мастера</Heading>
+<Heading TextSize="TextSize.Heading4">Топ услуга</Heading>
+<Heading TextSize="TextSize.Heading4">Соотношение мужчин и женщин</Heading>
+<Heading TextSize="TextSize.Heading4">Топ мастер</Heading> *@
+@code {
+    List<RenderedService> renderedServices = new();
+    DateTime selectedDate = DateTime.Now.Date;
+    protected override void OnParametersSet()
+    {
+        OnSellsDateSelected(selectedDate);
+    }
+    void OnSellsDateSelected(DateTime date)
+    {
+        selectedDate = date;
+        using (var db = new DatabaseContext())
+        {
+            renderedServices =
+            db.RenderedServices.Where(rService => rService.Timestamp.ToLocalTime().Date == selectedDate.Date)
+            .Include(rService => rService.Client.User)
+            .Include(rService => rService.Master.User)
+            .Include(rService => rService.Service)
+            .ToList();
+        }
+        StateHasChanged();
+    }
+}

@@ -1,15 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "630pqbNeieDr5JNwi6714IhX9VsbToK4xbta+Ua8sNUBFKn+xZ8w+I6d11GaKAtdDD0h0JUk/l5FYWKnkgkVog==",
+  "dgSpecHash": "gnhFjNyhebalOYNDtde+EMJBKBBCCVi5VhztwXrkKatyFWW9PI0L9TbwQCtwloRbpxhy+JYx0Q2vurLALj0NbA==",
   "success": true,
   "projectFilePath": "D:\\2 kurs\\spo\\barbershop\\source_code\\Barbershop\\Barbershop\\Barbershop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Danissimo\\.nuget\\packages\\blazored.localstorage\\4.5.0\\blazored.localstorage.4.5.0.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\blazorise\\1.5.2\\blazorise.1.5.2.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\blazorise.bootstrap\\1.5.2\\blazorise.bootstrap.1.5.2.nupkg.sha512",
+    "C:\\Users\\Danissimo\\.nuget\\packages\\blazorise.charts\\1.5.2\\blazorise.charts.1.5.2.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\blazorise.icons.fontawesome\\1.5.2\\blazorise.icons.fontawesome.1.5.2.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\blazorise.licensing\\1.2.0\\blazorise.licensing.1.2.0.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\blazorise.loadingindicator\\1.5.2\\blazorise.loadingindicator.1.5.2.nupkg.sha512",
+    "C:\\Users\\Danissimo\\.nuget\\packages\\lambda2js\\3.1.4\\lambda2js.3.1.4.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.4\\microsoft.aspnetcore.authorization.8.0.4.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.4\\microsoft.aspnetcore.components.8.0.4.nupkg.sha512",
     "C:\\Users\\Danissimo\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\8.0.4\\microsoft.aspnetcore.components.analyzers.8.0.4.nupkg.sha512",

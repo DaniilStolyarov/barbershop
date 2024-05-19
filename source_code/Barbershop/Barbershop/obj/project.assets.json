@@ -60,6 +60,32 @@
           "buildMultiTargeting/Blazorise.Bootstrap.props": {}
         }
       },
+      "Blazorise.Charts/1.5.2": {
+        "type": "package",
+        "dependencies": {
+          "Blazorise": "1.5.2",
+          "Lambda2Js": "3.1.4",
+          "Microsoft.AspNetCore.Components": "8.0.4",
+          "Microsoft.AspNetCore.Components.Web": "8.0.4",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/Blazorise.Charts.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Blazorise.Charts.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/Blazorise.Charts.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Blazorise.Charts.props": {}
+        }
+      },
       "Blazorise.Icons.FontAwesome/1.5.2": {
         "type": "package",
         "dependencies": {
@@ -113,6 +139,19 @@
         },
         "buildMultiTargeting": {
           "buildMultiTargeting/Blazorise.LoadingIndicator.props": {}
+        }
+      },
+      "Lambda2Js/3.1.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Lambda2Js.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Lambda2Js.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNetCore.Authorization/8.0.4": {
@@ -758,6 +797,31 @@
         "staticwebassets/tooltip.js"
       ]
     },
+    "Blazorise.Charts/1.5.2": {
+      "sha512": "+bQemGiNtyKvRMDRPIEwcFqoSR0IxESrK/FcWNjUidtpK4BJ7x0K7xoER0th4JLkjZCMHLD2sIm6ZUBYYiWNVg==",
+      "type": "package",
+      "path": "blazorise.charts/1.5.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Blazorise.png",
+        "LICENSE.md",
+        "blazorise.charts.1.5.2.nupkg.sha512",
+        "blazorise.charts.nuspec",
+        "build/Blazorise.Charts.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/Blazorise.Charts.props",
+        "buildTransitive/Blazorise.Charts.props",
+        "lib/net6.0/Blazorise.Charts.dll",
+        "lib/net6.0/Blazorise.Charts.xml",
+        "lib/net7.0/Blazorise.Charts.dll",
+        "lib/net7.0/Blazorise.Charts.xml",
+        "lib/net8.0/Blazorise.Charts.dll",
+        "lib/net8.0/Blazorise.Charts.xml",
+        "staticwebassets/charts.js",
+        "staticwebassets/utilities.js"
+      ]
+    },
     "Blazorise.Icons.FontAwesome/1.5.2": {
       "sha512": "EdurKcJng6bdljKES+G+4X7HRSdZSiMf8yakhah5mge7XFgIDTmdkumqaYcnN3wu4AAOSzW42++i5sIJXrXglQ==",
       "type": "package",
@@ -844,6 +908,25 @@
         "lib/net8.0/Blazorise.LoadingIndicator.xml",
         "staticwebassets/blazorise.loadingindicator.css",
         "staticwebassets/blazorise.loadingindicator.min.css"
+      ]
+    },
+    "Lambda2Js/3.1.4": {
+      "sha512": "yxPJ5n+jUdjTZSItFj2wx5uFGm8iN6Gt42apqnEq0Zm5R6GgueZFFl+GDSe/CEogMSaBRw8kRG3yZm8ABFWXGQ==",
+      "type": "package",
+      "path": "lambda2js/3.1.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "icon-512.png",
+        "lambda2js.3.1.4.nupkg.sha512",
+        "lambda2js.nuspec",
+        "lib/net40/Lambda2Js.dll",
+        "lib/net40/Lambda2Js.xml",
+        "lib/netstandard1.0/Lambda2Js.dll",
+        "lib/netstandard1.0/Lambda2Js.xml",
+        "lib/netstandard2.0/Lambda2Js.dll",
+        "lib/netstandard2.0/Lambda2Js.xml"
       ]
     },
     "Microsoft.AspNetCore.Authorization/8.0.4": {
@@ -1784,6 +1867,7 @@
     "net8.0": [
       "Blazored.LocalStorage >= 4.5.0",
       "Blazorise.Bootstrap >= 1.5.2",
+      "Blazorise.Charts >= 1.5.2",
       "Blazorise.Icons.FontAwesome >= 1.5.2",
       "Blazorise.LoadingIndicator >= 1.5.2",
       "Microsoft.AspNetCore.Identity.UI >= 8.0.4",
@@ -1848,6 +1932,10 @@
             "version": "[4.5.0, )"
           },
           "Blazorise.Bootstrap": {
+            "target": "Package",
+            "version": "[1.5.2, )"
+          },
+          "Blazorise.Charts": {
             "target": "Package",
             "version": "[1.5.2, )"
           },

@@ -1,0 +1,51 @@
+﻿<Heading>Соотношение клиентов по полу</Heading>
+<Div Width="Width.Is50.OnDesktop.Is75.OnMobile" Margin="Margin.IsAuto.OnX" Style="height: fit-content">
+    <PieChart @ref="@chart" TItem="int" Margin="Margin.Is5.OnY.Is3.OnX"></PieChart>
+</Div>
+@code {
+    PieChart<int> chart;
+    List<int> ClientGroupCounts = [];
+    List<string> ClientGroupLabels = [];
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        using (var db = new DatabaseContext())
+        {
+            ClientGroupLabels = db.Clients
+            .GroupBy(client => client.Sex)
+            .Select(clientGroup => clientGroup.Key)
+            .ToList();
+            ClientGroupCounts = db.Clients
+            .GroupBy(client => client.Sex)
+            .Select(clientGroup => clientGroup.Count())
+            .ToList();
+        }
+        var lineChartDataset = new PieChartDataset<int>()
+            {
+                Label = "OK",
+                Data = ClientGroupCounts,
+                BackgroundColor = genColors(ClientGroupCounts.Count),
+                BorderWidth = 1
+            };
+        chart.AddLabelsDatasetsAndUpdate(ClientGroupLabels, lineChartDataset);
+        StateHasChanged();
+    }
+    List<string> genColors(int count)
+    {
+        List<string> colorList = [];
+        for (int i = 0; i < count; i++)
+        {
+            colorList.Add(hsv2rgb((float)i / (float)count, 0.9f, 0.9f));
+        }
+        return colorList;
+    }
+    private ChartColor hsv2rgb(float h, float s, float v)
+    {
+        Func<float, int> f = delegate (float n)
+        {
+            float k = (n + h * 6) % 6;
+            return (int)((v - (v * s * (Math.Max(0, Math.Min(Math.Min(k, 4 - k), 1))))) * 255);
+        };
+        return ChartColor.FromRgba((byte)f(5), (byte)f(3), (byte)f(1), 1);
+    }
+}

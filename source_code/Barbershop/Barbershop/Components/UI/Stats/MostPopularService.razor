@@ -1,0 +1,57 @@
+﻿@rendermode InteractiveServer
+<Heading TextSize="TextSize.Heading4">Самая популярная услуга</Heading>
+<Field>
+    <FieldLabel TextWeight="TextWeight.Bold">@mostPopularService?.Category @mostPopularService?.Name</FieldLabel>
+</Field>
+<Div Width="Width.Is50.OnDesktop.Is75.OnMobile" Margin="Margin.IsAuto.OnX" Style="height: fit-content">
+    <PieChart @ref="@chart" TItem="int" Margin="Margin.Is5.OnY.Is3.OnX"></PieChart>
+</Div>
+@code {
+    Service? mostPopularService;
+    List<int> ServiceCounts = [];
+    List<string> ServiceLabels = [];
+    PieChart<int> chart;
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+        if (mostPopularService != null) return;
+        using (var db = new DatabaseContext())
+        {
+            var baseQuery = db.RenderedServices
+            .GroupBy(rService => rService.Service)
+            .OrderBy(rServiceGroup => rServiceGroup.Count());
+
+            mostPopularService = baseQuery.Select(rServiceGroup => rServiceGroup.Key).First();
+            ServiceCounts = baseQuery.Select(rServiceGroup => rServiceGroup.Count()).ToList();
+            ServiceLabels = baseQuery.Select(rServiceGroup => rServiceGroup.Key.Category + " " + rServiceGroup.Key.Name).ToList();
+        }
+        List<string> backgroundColors = genColors(ServiceCounts.Count);
+        var lineChartDataset = new PieChartDataset<int>()
+        {
+            Label = "OK",
+            Data = ServiceCounts,
+            BackgroundColor = backgroundColors,
+            BorderWidth = 1
+        };
+        chart.AddLabelsDatasetsAndUpdate(ServiceLabels, lineChartDataset);
+        StateHasChanged();
+    }
+    List<string> genColors(int count)
+    {
+        List<string> colorList = [];
+        for (int i = 0; i < count; i++)
+        {
+            colorList.Add(hsv2rgb((float)i / (float)count, 0.9f, 0.9f));
+        }
+        return colorList;
+    }
+    private ChartColor hsv2rgb(float h, float s, float v)
+    {
+        Func<float, int> f = delegate (float n)
+        {
+            float k = (n + h * 6) % 6;
+            return (int)((v - (v * s * (Math.Max(0, Math.Min(Math.Min(k, 4 - k), 1))))) * 255);
+        };
+        return ChartColor.FromRgba((byte)f(5), (byte)f(3), (byte)f(1), 1);
+    }
+}

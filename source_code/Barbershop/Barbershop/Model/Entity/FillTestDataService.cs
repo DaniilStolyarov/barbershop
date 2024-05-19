@@ -1,4 +1,5 @@
 ﻿using Barbershop.Model.ViewModel;
+using Blazorise.DeepCloner;
 
 namespace Barbershop.Model.Entity;
 
@@ -11,6 +12,8 @@ public class TestData
         FillMastersAsync(db).Wait();
         FillMasterServices(db).Wait();
         FillShifts(db).Wait();
+        FillAdminsAsync(db).Wait();
+        FillRenderedServicesAsync(db).Wait();
         db.SaveChanges();
     }
     static async Task FillClientsAsync(DatabaseContext db)
@@ -284,6 +287,16 @@ public class TestData
             Email = "olga@barbershop.com",
             PhoneNumber = "1234567890",
         });
+        await db.AddUserMaster(new()
+        {
+            Name = "Аристарх",
+            Surname = "Самойлов",
+            Lastname = "Гигачадович",
+            Skill = "Middle",
+            Password = "12345678",
+            Email = "aristarh@barbershop.com",
+            PhoneNumber = "1234567890",
+        });
     }
     static async Task FillMasterServices(DatabaseContext db)
     {
@@ -329,6 +342,69 @@ public class TestData
         {
             Master = Masters[1],
             Timestamp = DateTime.SpecifyKind(DateTime.Parse("2024-05-02").ToUniversalTime(), DateTimeKind.Utc),
+        });
+        db.SaveChanges();
+    }
+    static async Task FillAdminsAsync(DatabaseContext db)
+    {
+        db.Users.Add(new() {
+            Name = "Александр",
+            Surname = "Петров",
+            Lastname = "Васильевич",
+            Email = "alex@barbershop.com",
+            Password = "12345678",
+            PhoneNumber = "1234567890",
+            Role = "Admin"
+        });
+        db.SaveChanges();
+    }
+
+    static async Task FillRenderedServicesAsync(DatabaseContext db)
+    {
+        db.RenderedServices.Add(new()
+        {
+            Client = db.Clients.First(),
+            Master = db.Masters.First(),
+            IsComplete = true,
+            Review = "Cool!",
+            Mark = 5,
+            Timestamp = DateTime.SpecifyKind(DateTime.Now.ToLocalTime(), DateTimeKind.Utc),
+            Service = db.Services.First(),
+            TotalPriceRubles = db.Services.First().PriceRubles
+        });
+        db.RenderedServices.Add(new()
+        {
+            Client = db.Clients.OrderBy(client => client.Id).Last(),
+            Master = db.Masters.OrderBy(client => client.Id).Last(),
+            IsComplete = true,
+            Review = "Bad(",
+            Mark = 1,
+            Timestamp = DateTime.SpecifyKind(DateTime.Now.ToLocalTime(), DateTimeKind.Utc),
+            Service = db.Services.First(),
+            TotalPriceRubles = db.Services.OrderBy(client => client.Id).Last().PriceRubles
+        });
+        db.RenderedServices.Add(new()
+        {
+            Client = db.Clients.OrderBy(client => client.Id).Last(),
+            Master = db.Masters.OrderBy(client => client.Id).Last(),
+            IsComplete = true,
+            Review = "Norm",
+            Mark = 3,
+            Timestamp = DateTime.SpecifyKind(DateTime.Now.ToLocalTime(), DateTimeKind.Utc),
+            Service = db.Services.OrderBy(s => s.Id).Last(),
+            TotalPriceRubles = db.Services.OrderBy(p => p.Id).Last().PriceRubles
+        });
+
+        db.RenderedServices.Add(new()
+        {
+            Client = db.Clients.OrderBy(client => client.Id).Last(),
+            Master = db.Masters.Where(master => master.Id == 2).Single(),
+            IsComplete = true,
+            Review = "хорошо",
+            Mark = 4,
+            Timestamp = DateTime.SpecifyKind(DateTime.Now.ToLocalTime(), DateTimeKind.Utc),
+            Service = db.Services.Where(service => service.Id == 5).Single(),
+            TotalPriceRubles = db.Services.Where(service => service.Id == 5).Single().PriceRubles
         });
         db.SaveChanges();
     }

@@ -14,6 +14,10 @@
 {
     <HomeMaster AuthorizedUser="@AuthorizedUser"></HomeMaster>
 }
+@if (AuthorizedUser?.Role == RoleTypes.Admin)
+{
+    <HomeAdmin AuthorizedUser="@AuthorizedUser"></HomeAdmin>
+}
 @code
 {
     User? AuthorizedUser;

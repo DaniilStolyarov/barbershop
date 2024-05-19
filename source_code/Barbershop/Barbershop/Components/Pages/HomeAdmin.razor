@@ -1,25 +1,194 @@
 ﻿@using System.ComponentModel.DataAnnotations
 @using Barbershop.Model.Entity
+@using Barbershop.Model.ViewModel
 @using Microsoft.EntityFrameworkCore
+@using Barbershop.Components.UI.Stats
 @rendermode InteractiveServer
 @inject NavigationManager navigation
 @inject IAuthorizationService authorization
 @inject IToastService ToastService
-<Div Padding=Padding.Is4.OnDesktop.Is3.OnMobile>
-    <Div Flex="Flex.Row.Wrap">
+<Div Padding=Padding.Is5.OnDesktop.Is2.OnMobile>
+    <Div Flex="Flex.Row.Wrap" Padding="Padding.Is5.OnX.OnQuadHD">
         <Card Padding=Padding.Is5.OnDesktop.Is3.OnMobile
-              Width="Width.Is50.OnQuadHD.Is100.OnMobile">
+              Width="Width.Is100.OnMobile">
+              <Heading>Управление мастерами</Heading>
+            <Div Style="max-height: 300px; overflow:auto">
+                <Table>
+                    <TableHeader>
+                        <TableHeaderCell>Код</TableHeaderCell>
+                        <TableHeaderCell>Имя</TableHeaderCell>
+                        <TableHeaderCell>Фамилия</TableHeaderCell>
+                        <TableHeaderCell>Отчество</TableHeaderCell>
+                        <TableHeaderCell>Телефон</TableHeaderCell>
+                        <TableHeaderCell>Уровень</TableHeaderCell>
+                    </TableHeader>
+                    <TableBody>
+                        <Repeater Items="@viewMasters">
+                            <TableRow>
+                                <TableRowCell>
+                                    @context.Id.ToString()
+                                </TableRowCell>
+                                <TableRowCell>
+                                    @context.User.Name
+                                </TableRowCell>
+                                <TableRowCell>
+                                    @context.User.Surname
+                                </TableRowCell>
+                                <TableRowCell>
+                                    @context.User.Lastname
+                                </TableRowCell>
+                                <TableRowCell>
+                                    @context.User.PhoneNumber
+                                </TableRowCell>
+                                <TableRowCell>
+                                    @context.Skill
+                                </TableRowCell>
+                                <TableRowCell>
+                                    <Button Clicked="() => {RemoveMaster(context.Id);}">
+                                        <Icon Name="IconName.Delete" TextColor="TextColor.Danger"></Icon>
+                                    </Button>
+                                </TableRowCell>
+                            </TableRow>
+                        </Repeater>
+                    </TableBody>
+                </Table>
+            </Div>
+            <Button Color="Color.Primary" Clicked="() => {addMasterModal.Show();}">
+                <Icon Name="IconName.UserPlus"></Icon>
+            </Button>
         </Card>
         <Card Padding=Padding.Is5.OnDesktop.Is3.OnMobile
-              Width="Width.Is50.OnQuadHD.Is100.OnMobile">
+              Width="Width.Is100.OnMobile">
+             <Heading>Статистика</Heading>
+             <SellForDate></SellForDate>
+             <MasterFeeForDate></MasterFeeForDate>
+             <MostPopularService></MostPopularService>
+             <SexDistribution></SexDistribution>
+             <BonusClientCountForDate></BonusClientCountForDate>
+             <TopMaster></TopMaster>
         </Card>
     </Div>
 </Div>
+<Modal @ref="@addMasterModal" >
+    <ModalContent Centered>
+        <ModalHeader>
+            <Heading TextSize="TextSize.Heading4">Добавить мастера</Heading>
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+            <Validations @ref="validations" Mode="ValidationMode.Auto" Model="@AddMasterViewModel" ValidateOnLoad="false">
+                <Fields>
+                    <Validation>
+                        <Field>
+                            <FieldLabel>Фамилия</FieldLabel>
+                            <TextEdit MaskType="MaskType.RegEx" EditMask="^[а-яА-Я]*$"
+                                      Placeholder="Иванов" Role="TextRole.Text" @bind-Text="AddMasterViewModel.Surname">
+                                <Feedback>
+                                    <ValidationError></ValidationError>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+
+                    </Validation>
+                    <Validation>
+                        <Field>
+                            <FieldLabel>Имя</FieldLabel>
+                            <TextEdit MaskType="MaskType.RegEx" EditMask="^[а-яА-Я]*$"
+                                      Placeholder="Иван" Role="TextRole.Text" @bind-Text="AddMasterViewModel.Name">
+                                <Feedback>
+                                    <ValidationError></ValidationError>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation>
+                        <Field>
+                            <FieldLabel>Отчество</FieldLabel>
+                            <TextEdit MaskType="MaskType.RegEx" EditMask="^[а-яА-Я]*$"
+                                      Placeholder="Иванович" Role="TextRole.Text" @bind-Text="AddMasterViewModel.Lastname">
+                                <Feedback>
+                                    <ValidationError></ValidationError>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                </Fields>
+                <Validation>
+                    <Field>
+                        <FieldLabel>Пол</FieldLabel>
+                        <Select TValue="string" @bind-SelectedValue="@AddMasterViewModel.Sex">
+                            <SelectItem Value='"Мужской"'>Мужской</SelectItem>
+                            <SelectItem Value='"Женский"'>Женский</SelectItem>
+                        </Select>
+                    </Field>
+                </Validation>
+                <Fields>
+                    <Validation>
+                        <Field>
+                            <FieldLabel>Номер телефона</FieldLabel>
+                            <TextEdit MaskType="MaskType.RegEx" EditMask="^(\d+(.\d{0,2})?|.?\d{1,2})$"
+                                      Placeholder="8XXXXXXXXXX" Role="TextRole.Telephone" @bind-Text="AddMasterViewModel.PhoneNumber">
+                                <Feedback>
+                                    <ValidationError></ValidationError>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation>
+                        <Field>
+                            <FieldLabel>Адрес электронной почты</FieldLabel>
+                            <TextEdit Placeholder="example@mail.test" Role="TextRole.Email" @bind-Text="AddMasterViewModel.Email">
+                                <Feedback>
+                                    <ValidationError></ValidationError>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                </Fields>
+                <Validation>
+                    <Field>
+                        <FieldLabel>Пароль</FieldLabel>
+                        <TextEdit Role="TextRole.Password" @bind-Text="AddMasterViewModel.Password">
+                            <Feedback>
+                                <ValidationError></ValidationError>
+                            </Feedback>
+                        </TextEdit>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field>
+                        <FieldLabel>Пароль (введите снова)</FieldLabel>
+                        <TextEdit Role="TextRole.Password" @bind-Text="AddMasterViewModel.PasswordConfirm">
+                            <Feedback>
+                                <ValidationError></ValidationError>
+                            </Feedback>
+                        </TextEdit>
+                    </Field>
+                </Validation>
+            </Validations>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Primary" Clicked="@AddMaster">Сохранить</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
 
 @code {
+    [Required]
+    [Parameter]
+    public User AuthorizedUser { get; set; }
     List<Master> viewMasters = [];
+    RegisterMasterViewModel AddMasterViewModel { get; set; } = new();
+    Validations validations;
+    Modal addMasterModal;
+    Modal editMasterModal;
     protected override void OnParametersSet()
     {
+        if (AuthorizedUser.Role != "Admin")
+        {
+            navigation.NavigateTo("/", true);
+            return;
+        }
         using (var db = new DatabaseContext())
         {
             viewMasters = db.Masters
@@ -28,7 +197,32 @@
                             .ToList();
         }
     }
-
+    async Task AddMaster()
+    {
+        if (!await validations.ValidateAll())
+        {
+            return;
+        }
+        using (var db = new DatabaseContext())
+        {
+            await db.AddUserMaster(AddMasterViewModel);
+        }
+        await addMasterModal.Hide();
+        navigation.Refresh(true);
+    }
+    async Task RemoveMaster(int masterId)
+    {
+        using (var db = new DatabaseContext())
+        {
+            db.Masters.Remove(db.Masters.Where(master => master.Id == masterId).Single());
+            db.SaveChanges();
+        }
+        navigation.Refresh(true);
+    }
+    void EditMasterData(int masterId)
+    {
+        
+    }
     void UpdateMasterData()
     {
         

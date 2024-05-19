@@ -57,3 +57,5 @@ D:\2 kurs\spo\barbershop\source_code\Barbershop\Barbershop\obj\Debug\net8.0\Barb
 D:\2 kurs\spo\barbershop\source_code\Barbershop\Barbershop\bin\Debug\net8.0\Blazored.LocalStorage.dll
 D:\2 kurs\spo\barbershop\source_code\Barbershop\Barbershop\bin\Debug\net8.0\Blazorise.LoadingIndicator.dll
 D:\2 kurs\spo\barbershop\source_code\Barbershop\Barbershop\obj\Debug\net8.0\Barbershop.sourcelink.json
+D:\2 kurs\spo\barbershop\source_code\Barbershop\Barbershop\bin\Debug\net8.0\Blazorise.Charts.dll
+D:\2 kurs\spo\barbershop\source_code\Barbershop\Barbershop\bin\Debug\net8.0\Lambda2Js.dll

@@ -58,6 +58,10 @@
               "target": "Package",
               "version": "[1.5.2, )"
             },
+            "Blazorise.Charts": {
+              "target": "Package",
+              "version": "[1.5.2, )"
+            },
             "Blazorise.Icons.FontAwesome": {
               "target": "Package",
               "version": "[1.5.2, )"

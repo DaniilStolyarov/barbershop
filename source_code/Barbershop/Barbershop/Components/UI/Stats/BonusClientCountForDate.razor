@@ -1,0 +1,25 @@
+﻿@rendermode InteractiveServer
+<Heading>Количество клиентов с бонусами</Heading>
+<DatePicker TValue="DateTime" Date="@SelectedDate" DateChanged="@OnDateSelected"></DatePicker>
+<Field>
+    <FieldLabel>Количество клиентов с бонусами: @totalCount</FieldLabel>
+</Field>
+@code {
+    DateTime SelectedDate = DateTime.Now.Date;
+    int totalCount = 0;
+    protected override void OnParametersSet()
+    {
+        OnDateSelected(SelectedDate);
+    }
+    void OnDateSelected(DateTime selectedDate)
+    {
+        SelectedDate = selectedDate;
+        using (var db = new DatabaseContext())
+        {
+            totalCount = db.RenderedServices
+            .Where(rService => rService.TotalPriceRubles < rService.Service.PriceRubles)
+            .Where(rService => rService.Timestamp.ToLocalTime().Date == DateTime.SpecifyKind(SelectedDate, DateTimeKind.Utc).ToLocalTime().Date)
+            .Count();
+        }
+    }
+}

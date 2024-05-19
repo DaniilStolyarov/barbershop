@@ -90,6 +90,30 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxOYXZpZ2F0aW9uQmFyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/2 kurs/spo/barbershop/source_code/Barbershop/Barbershop/Components/UI/Stats/BonusClientCountForDate.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxTdGF0c1xCb251c0NsaWVudENvdW50Rm9yRGF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/2 kurs/spo/barbershop/source_code/Barbershop/Barbershop/Components/UI/Stats/MasterFeeForDate.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxTdGF0c1xNYXN0ZXJGZWVGb3JEYXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/2 kurs/spo/barbershop/source_code/Barbershop/Barbershop/Components/UI/Stats/MostPopularService.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxTdGF0c1xNb3N0UG9wdWxhclNlcnZpY2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/2 kurs/spo/barbershop/source_code/Barbershop/Barbershop/Components/UI/Stats/SellForDate.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxTdGF0c1xTZWxsRm9yRGF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/2 kurs/spo/barbershop/source_code/Barbershop/Barbershop/Components/UI/Stats/SexDistribution.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxTdGF0c1xTZXhEaXN0cmlidXRpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/2 kurs/spo/barbershop/source_code/Barbershop/Barbershop/Components/UI/Stats/TopMaster.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxTdGF0c1xUb3BNYXN0ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/2 kurs/spo/barbershop/source_code/Barbershop/Barbershop/Components/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

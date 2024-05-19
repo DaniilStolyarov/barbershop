@@ -1,0 +1,48 @@
+﻿@using Microsoft.EntityFrameworkCore
+<Heading TextSize="TextSize.Heading4">Заработок мастера</Heading>
+<Field>
+    <FieldLabel>Дата</FieldLabel>
+    <DatePicker TValue="DateTime" @bind-Date="@searchDate" StaticPicker="false"></DatePicker>
+</Field>
+<Field>
+    <FieldLabel>Мастер</FieldLabel>
+    <Select TValue="int" SelectedValueChanged="OnMasterSelected">
+        <SelectItem Value="-1">Не выбрано</SelectItem>
+        <Repeater Items="@masters">
+            <SelectItem Value="@context.Id">@context.User.Name</SelectItem>
+        </Repeater>
+    </Select>
+</Field>
+<Field>
+    <FieldLabel TextWeight="TextWeight.Bold">Всего:</FieldLabel>
+    <FieldLabel TextWeight="TextWeight.Bold">@masterFeeForDateValue рублей</FieldLabel>
+
+</Field>
+@code {
+    List<Master> masters = [];
+    Validations validations;
+    decimal masterFeeForDateValue = 0;
+    DateTime searchDate = DateTime.Now.Date;
+    protected override async Task OnParametersSetAsync()
+    {
+        using (var db = new DatabaseContext())
+        {
+            masters = db.Masters
+            .Include(master => master.User)
+            .ToList();
+        }
+    }
+    void OnMasterSelected(int masterIndex)
+    {
+        if (masterIndex == -1) return;
+
+        using (var db = new DatabaseContext())
+        {
+            masterFeeForDateValue = db.RenderedServices
+            .Where(rService => rService.Timestamp.ToLocalTime().Date == searchDate.ToLocalTime().Date)
+            .Where(rService => rService.Master.Id == masterIndex)
+            .Sum(rService => rService.TotalPriceRubles);
+        }
+        StateHasChanged();
+    }
+}

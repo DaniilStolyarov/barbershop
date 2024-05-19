@@ -10,6 +10,7 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.5.0",
           "Blazorise.Bootstrap": "1.5.2",
+          "Blazorise.Charts": "1.5.2",
           "Blazorise.Icons.FontAwesome": "1.5.2",
           "Blazorise.LoadingIndicator": "1.5.2",
           "Microsoft.AspNetCore.Identity.UI": "8.0.4",
@@ -61,6 +62,21 @@
           }
         }
       },
+      "Blazorise.Charts/1.5.2": {
+        "dependencies": {
+          "Blazorise": "1.5.2",
+          "Lambda2Js": "3.1.4",
+          "Microsoft.AspNetCore.Components": "8.0.4",
+          "Microsoft.AspNetCore.Components.Web": "8.0.4",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/Blazorise.Charts.dll": {
+            "assemblyVersion": "1.5.2.0",
+            "fileVersion": "1.5.2.0"
+          }
+        }
+      },
       "Blazorise.Icons.FontAwesome/1.5.2": {
         "dependencies": {
           "Blazorise": "1.5.2",
@@ -94,6 +110,14 @@
           "lib/net8.0/Blazorise.LoadingIndicator.dll": {
             "assemblyVersion": "1.5.2.0",
             "fileVersion": "1.5.2.0"
+          }
+        }
+      },
+      "Lambda2Js/3.1.4": {
+        "runtime": {
+          "lib/netstandard2.0/Lambda2Js.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -401,6 +425,13 @@
       "path": "blazorise.bootstrap/1.5.2",
       "hashPath": "blazorise.bootstrap.1.5.2.nupkg.sha512"
     },
+    "Blazorise.Charts/1.5.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+bQemGiNtyKvRMDRPIEwcFqoSR0IxESrK/FcWNjUidtpK4BJ7x0K7xoER0th4JLkjZCMHLD2sIm6ZUBYYiWNVg==",
+      "path": "blazorise.charts/1.5.2",
+      "hashPath": "blazorise.charts.1.5.2.nupkg.sha512"
+    },
     "Blazorise.Icons.FontAwesome/1.5.2": {
       "type": "package",
       "serviceable": true,
@@ -421,6 +452,13 @@
       "sha512": "sha512-dtIRd+6iNuk1VopXseFpQcnFR8Up5cKP4VS9448pOu3VZz4jwGUPpc+IVaSqnGX0KnLmx4qNYs2aqspBBdqaUA==",
       "path": "blazorise.loadingindicator/1.5.2",
       "hashPath": "blazorise.loadingindicator.1.5.2.nupkg.sha512"
+    },
+    "Lambda2Js/3.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yxPJ5n+jUdjTZSItFj2wx5uFGm8iN6Gt42apqnEq0Zm5R6GgueZFFl+GDSe/CEogMSaBRw8kRG3yZm8ABFWXGQ==",
+      "path": "lambda2js/3.1.4",
+      "hashPath": "lambda2js.3.1.4.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authorization/8.0.4": {
       "type": "package",

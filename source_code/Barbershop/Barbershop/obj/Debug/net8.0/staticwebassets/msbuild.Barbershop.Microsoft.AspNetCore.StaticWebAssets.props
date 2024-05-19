@@ -96,22 +96,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\static\images\Services\Beard\Short.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\static\images\Services\Beard\Zoom_cm_fo42pnktZ9vvrZo4_mFZArxehJMuxpy+bQbqw-PWw1uuuQ9ROtu2-+@E0C7JvSdS7obYX8A_kb9838bd976c304ab_.exe))">
-      <SourceType>Package</SourceType>
-      <SourceId>Barbershop</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Barbershop</BasePath>
-      <RelativePath>static/images/Services/Beard/Zoom_cm_fo42pnktZ9vvrZo4_mFZArxehJMuxpy+bQbqw-PWw1uuuQ9ROtu2-+@E0C7JvSdS7obYX8A_kb9838bd976c304ab_.exe</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\static\images\Services\Beard\Zoom_cm_fo42pnktZ9vvrZo4_mFZArxehJMuxpy+bQbqw-PWw1uuuQ9ROtu2-+@E0C7JvSdS7obYX8A_kb9838bd976c304ab_.exe))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\static\images\Services\Coloring\Coloring.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>Barbershop</SourceId>

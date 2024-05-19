@@ -20,6 +20,7 @@
     <Import Project="$(NuGetPackageRoot)blazorise\1.5.2\buildTransitive\Blazorise.props" Condition="Exists('$(NuGetPackageRoot)blazorise\1.5.2\buildTransitive\Blazorise.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.loadingindicator\1.5.2\buildTransitive\Blazorise.LoadingIndicator.props" Condition="Exists('$(NuGetPackageRoot)blazorise.loadingindicator\1.5.2\buildTransitive\Blazorise.LoadingIndicator.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.icons.fontawesome\1.5.2\buildTransitive\Blazorise.Icons.FontAwesome.props" Condition="Exists('$(NuGetPackageRoot)blazorise.icons.fontawesome\1.5.2\buildTransitive\Blazorise.Icons.FontAwesome.props')" />
+    <Import Project="$(NuGetPackageRoot)blazorise.charts\1.5.2\buildTransitive\Blazorise.Charts.props" Condition="Exists('$(NuGetPackageRoot)blazorise.charts\1.5.2\buildTransitive\Blazorise.Charts.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.bootstrap\1.5.2\buildTransitive\Blazorise.Bootstrap.props" Condition="Exists('$(NuGetPackageRoot)blazorise.bootstrap\1.5.2\buildTransitive\Blazorise.Bootstrap.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
