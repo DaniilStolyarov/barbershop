@@ -96,8 +96,6 @@ public class AuthorizationService : IAuthorizationService
         this.navigation = navigation;
     }
 
-    
-
     public async Task Logout()
     {
         await localStorage.ClearAsync();
