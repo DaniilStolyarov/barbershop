@@ -67,6 +67,7 @@
              <BonusClientCountForDate></BonusClientCountForDate>
              <TopMaster></TopMaster>
         </Card>
+        <Button Width="Width.Is100" Color="Color.Danger" Clicked="() => {authorization.Logout(); navigation.NavigateTo(String.Empty);}">Выйти</Button>
     </Div>
 </Div>
 <Modal @ref="@addMasterModal" >

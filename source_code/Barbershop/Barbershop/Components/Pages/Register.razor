@@ -11,7 +11,8 @@
     <LayoutContent Flex="Flex.Column.AlignItems.Center.JustifyContent.Start" Width="Width.Is100">
         <Card Padding="Padding.Is5.OnX.Is4.OnY.OnDesktop.Is3.OnMobile"
               Width="Width.Is50.OnDesktop.Is100.OnMobile"
-              Margin="Margin.Is3.OnDesktop.Is0.OnMobile">
+              Margin="Margin.Is3.OnDesktop.Is0.OnMobile"
+              >
             <Form>
                 <Heading TextAlignment="TextAlignment.Center">Регистрация</Heading>
                 <Validations @ref="validations" Mode="ValidationMode.Auto" Model="@RegisterModel" ValidateOnLoad="false">
@@ -74,7 +75,7 @@
                         </Validation>
                         <Validation>
                             <Field>
-                                <FieldLabel>Адрес электронной почты</FieldLabel>
+                                <FieldLabel>Почта</FieldLabel>
                                 <TextEdit Placeholder="example@mail.test" Role="TextRole.Email" @bind-Text="RegisterModel.Email">
                                     <Feedback>
                                         <ValidationError></ValidationError>
